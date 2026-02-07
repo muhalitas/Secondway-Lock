@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Secondway Lock</string>
+    <string name="welcome_title">Welcome to Secondway Lock</string>
+    <string name="welcome_message">This app helps you lock down your device:\n\n• Blocks factory reset from Settings.\n• You must set this app as Device Owner via ADB (see Readme).\n\nChoose the lock duration below; you can change it later from the main screen.</string>
+    <string name="device_admin_label">Secondway Lock</string>
+    <string name="device_admin_description">Restricts recovery and factory reset access as device owner.</string>
+    <string name="status_device_owner">Device Owner: Yes</string>
+    <string name="status_not_device_owner">Device Owner: No</string>
+    <string name="full_protection_notice_title">Note</string>
+    <string name="full_protection_notice">Full protection requires both apps on the same device.</string>
+    <string name="protection_label">Protection:</string>
+    <string name="protection_active">Active</string>
+    <string name="protection_passive">Passive</string>
+    <string name="lock_duration_label">Lock duration</string>
+    <string name="duration_picker_title">Lock duration</string>
+    <string name="duration_hours">Hours</string>
+    <string name="duration_minutes">Min</string>
+    <string name="duration_seconds">Sec</string>
+    <string name="duration_preview_format">%1$dh %2$dm %3$ds</string>
+    <string name="duration_preview_immediate">Immediate</string>
+    <string name="countdown_unlocking">Unlocking in %ds</string>
+    <string name="countdown_allow_in">Allow in %ds</string>
+    <string name="lock_duration_defer_text">New duration %1$s will take effect in %2$ds.</string>
+    <string name="lock_duration_defer_cancel">Cancel</string>
+    <string name="toast_lock_duration_defer_canceled">Duration change canceled.</string>
+    <string name="check_factory_reset">Factory reset block (Settings)</string>
+    <string name="readme_button">Readme</string>
+    <string name="restrictions_applied">Restrictions applied.</string>
+    <string name="restrictions_removed">Restrictions removed.</string>
+    <string name="allow_all_apps">Allow all apps</string>
+    <string name="toast_all_apps_allowed">All apps can be launched</string>
+    <string name="new_apps_title">Newly installed apps</string>
+    <string name="new_apps_master_label">Unlock all new apps</string>
+    <string name="new_apps_master_countdown">Unlocking in %ds</string>
+    <string name="new_apps_subtitle">Newly installed; launching is blocked. On some devices, the launcher icon may look like it disappeared.</string>
+    <string name="new_apps_empty">No newly installed apps.</string>
+    <string name="all_apps_title">Apps</string>
+    <string name="all_apps_subtitle">Non-system apps. Switch ON = allowed. Switch OFF = blocked.</string>
+    <string name="toast_app_allowed">App can be launched</string>
+    <string name="notification_applying">Applying…</string>
+    <string name="toast_app_blocked">App blocked</string>
+    <string name="toast_factory_reset_on">Factory reset block enabled</string>
+    <string name="toast_factory_reset_off">Factory reset block disabled</string>
+    <string name="readme_title">Readme</string>
+    <string name="readme_content">• IMPORTANT: Full protection requires both apps to be installed on the same device. If they are not on the same device, full protection cannot be achieved.\n\n• ON = restriction active.\n\n• To set Device Owner: the device must have no account. ADB: adb shell dpm set-device-owner com.recoverylock.dpc/.DeviceAdminReceiver\n\n• How to uninstall: a Device Owner app cannot be uninstalled from Settings. Either factory reset the device, or remove Device Owner first via this app (button below) or ADB: adb shell dpm remove-active-admin com.recoverylock.dpc/.DeviceAdminReceiver</string>
+    <string name="button_remove_device_owner">Remove Device Owner (then you can uninstall)</string>
+    <string name="toast_not_device_owner">Not Device Owner</string>
+    <string name="toast_device_owner_removed">Device Owner removed. You can now uninstall the app from Settings.</string>
+    <string name="toast_remove_failed">Failed: %s</string>
+    <string name="toast_apps_released">%d app(s) released; they can open again.</string>
+    <string name="toast_app_suspend_failed">Failed to change</string>
+    <string name="toast_new_apps_locked">Locked %d newly installed app(s).</string>
+    <string name="app_list_title">Apps (Suspend / Unsuspend)</string>
+    <string name="app_list_subtitle">Switch ON = app can open. Switch OFF = app suspended (blocked).</string>
+    <string name="app_list_empty">No apps to show</string>
+    <string name="app_list_loading">Loading…</string>
+    <string name="app_list_button">App list</string>
+    <string name="new_apps_item_blocked">Launch blocked</string>
+    <string name="new_apps_item_allowed">Allowed</string>
+
+    <string name="monitor_channel_name">Background monitoring</string>
+    <string name="monitor_channel_description">Keeps Secondway Lock active to lock newly installed apps.</string>
+    <string name="monitor_notification_title">Secondway Lock</string>
+    <string name="monitor_notification_text">Monitoring new installs</string>
+</resources>

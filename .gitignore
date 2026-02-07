@@ -1,0 +1,19 @@
+.DS_Store
+
+# Android/Gradle
+build/
+**/build/
+.gradle/
+local.properties
+
+# IDE
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+
+# Tooling
+.cursor/
+.gradle-home/
+
