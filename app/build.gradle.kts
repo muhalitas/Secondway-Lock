@@ -8,10 +8,10 @@ plugins {
 }
 
 android {
-    namespace = "com.recoverylock.dpc"
+    namespace = "app.secondway.lock"
     compileSdk = 34
     defaultConfig {
-        applicationId = "com.recoverylock.dpc"
+        applicationId = "app.secondway.lock"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

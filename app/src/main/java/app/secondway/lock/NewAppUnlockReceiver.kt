@@ -1,4 +1,4 @@
-package com.recoverylock.dpc
+package app.secondway.lock
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -49,7 +49,7 @@ class NewAppUnlockReceiver : BroadcastReceiver() {
     }
 
     companion object {
-        const val ACTION_UNLOCK = "com.recoverylock.dpc.action.UNLOCK_NEW_APP"
+        const val ACTION_UNLOCK = "app.secondway.lock.action.UNLOCK_NEW_APP"
         const val EXTRA_PACKAGE_NAME = "package_name"
     }
 }

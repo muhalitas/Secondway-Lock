@@ -1,4 +1,4 @@
-package com.recoverylock.dpc
+package app.secondway.lock
 
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater

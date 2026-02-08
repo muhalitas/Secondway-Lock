@@ -1,4 +1,4 @@
-package com.recoverylock.dpc
+package app.secondway.lock
 
 import android.app.admin.DeviceAdminReceiver
 import android.content.Context
@@ -6,7 +6,7 @@ import android.content.Intent
 import android.widget.Toast
 
 /**
- * For Device Owner assignment. ADB: dpm set-device-owner com.recoverylock.dpc/.DeviceAdminReceiver
+ * For Device Owner assignment. ADB: dpm set-device-owner app.secondway.lock/.DeviceAdminReceiver
  */
 class DeviceAdminReceiver : DeviceAdminReceiver() {
 

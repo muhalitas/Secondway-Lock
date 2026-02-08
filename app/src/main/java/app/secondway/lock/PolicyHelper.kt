@@ -1,4 +1,4 @@
-package com.recoverylock.dpc
+package app.secondway.lock
 
 import android.app.admin.DevicePolicyManager
 import android.content.ComponentName

@@ -1,4 +1,4 @@
-package com.recoverylock.dpc
+package app.secondway.lock
 
 import android.app.AlarmManager
 import android.app.PendingIntent

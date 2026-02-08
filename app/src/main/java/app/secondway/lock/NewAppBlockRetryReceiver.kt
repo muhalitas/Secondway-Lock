@@ -1,4 +1,4 @@
-package com.recoverylock.dpc
+package app.secondway.lock
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -24,7 +24,7 @@ class NewAppBlockRetryReceiver : BroadcastReceiver() {
     }
 
     companion object {
-        const val ACTION_RETRY_BLOCK = "com.recoverylock.dpc.action.RETRY_BLOCK_NEW_APP"
+        const val ACTION_RETRY_BLOCK = "app.secondway.lock.action.RETRY_BLOCK_NEW_APP"
         const val EXTRA_PACKAGE_NAME = "package_name"
         const val EXTRA_ATTEMPT = "attempt"
     }

@@ -1,4 +1,4 @@
-package com.recoverylock.dpc
+package app.secondway.lock
 
 import android.content.Intent
 import android.content.pm.ApplicationInfo

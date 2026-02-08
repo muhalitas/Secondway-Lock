@@ -80,4 +80,4 @@ private fun onLockDurationChanged(newDurationSec: Int) {
    - Ya `LockHelper.setLockDurationWithPendingRule` (ve gerekirse `onLockDurationChanged`) mantığını değiştir,
    - Ya da farklı bir yaklaşım öner (örn. pending end’i ayrı bir yerde tutmak, `commit()` kullanmak, vb.).
 
-Proje yolu: `SecondwayLock/` (LockHelper: `app/src/main/java/com/recoverylock/dpc/LockHelper.kt`, MainActivity: `app/src/main/java/com/recoverylock/dpc/MainActivity.kt`).
+Proje yolu: `SecondwayLock/` (LockHelper: `app/src/main/java/app/secondway/lock/LockHelper.kt`, MainActivity: `app/src/main/java/app/secondway/lock/MainActivity.kt`).

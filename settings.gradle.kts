@@ -12,5 +12,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "RecoveryLockDPC"
+rootProject.name = "SecondwayLock"
 include(":app")

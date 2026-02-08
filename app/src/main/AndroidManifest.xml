@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <application
-        android:name=".RecoveryLockApplication"
+        android:name=".SecondwayLockApplication"
         android:allowBackup="false"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
@@ -60,7 +60,7 @@
         <service
             android:name=".InstallMonitorService"
             android:exported="false" />
-        <!-- Device Owner: adb shell dpm set-device-owner com.recoverylock.dpc/.DeviceAdminReceiver -->
+        <!-- Device Owner: adb shell dpm set-device-owner app.secondway.lock/.DeviceAdminReceiver -->
         <receiver
             android:name=".DeviceAdminReceiver"
             android:label="@string/device_admin_label"

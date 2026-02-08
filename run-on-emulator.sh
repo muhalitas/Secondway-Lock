@@ -9,5 +9,5 @@ echo ""
 echo "Installing to emulator..."
 adb install -r "$APK"
 echo "Launching Secondway Lock..."
-adb shell am start -n com.recoverylock.dpc/.MainActivity
+adb shell am start -n app.secondway.lock/.MainActivity
 echo "Done."

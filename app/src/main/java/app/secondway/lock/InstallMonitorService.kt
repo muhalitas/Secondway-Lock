@@ -1,4 +1,4 @@
-package com.recoverylock.dpc
+package app.secondway.lock
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -151,8 +151,8 @@ class InstallMonitorService : Service() {
     }
 
     companion object {
-        const val ACTION_START = "com.recoverylock.dpc.action.MONITOR_START"
-        const val ACTION_STOP = "com.recoverylock.dpc.action.MONITOR_STOP"
+        const val ACTION_START = "app.secondway.lock.action.MONITOR_START"
+        const val ACTION_STOP = "app.secondway.lock.action.MONITOR_STOP"
 
         private const val CHANNEL_ID = "install_monitor"
         private const val NOTIFICATION_ID = 1001

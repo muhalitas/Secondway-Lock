@@ -43,7 +43,7 @@
     <string name="toast_factory_reset_on">Factory reset block enabled</string>
     <string name="toast_factory_reset_off">Factory reset block disabled</string>
     <string name="readme_title">Readme</string>
-    <string name="readme_content">• IMPORTANT: Full protection requires both apps to be installed on the same device. If they are not on the same device, full protection cannot be achieved.\n\n• ON = restriction active.\n\n• To set Device Owner: the device must have no account. ADB: adb shell dpm set-device-owner com.recoverylock.dpc/.DeviceAdminReceiver\n\n• How to uninstall: a Device Owner app cannot be uninstalled from Settings. Either factory reset the device, or remove Device Owner first via this app (button below) or ADB: adb shell dpm remove-active-admin com.recoverylock.dpc/.DeviceAdminReceiver</string>
+    <string name="readme_content">• IMPORTANT: Full protection requires both apps to be installed on the same device. If they are not on the same device, full protection cannot be achieved.\n\n• ON = restriction active.\n\n• To set Device Owner: the device must have no account. ADB: adb shell dpm set-device-owner app.secondway.lock/.DeviceAdminReceiver\n\n• How to uninstall: a Device Owner app cannot be uninstalled from Settings. Either factory reset the device, or remove Device Owner first via this app (button below) or ADB: adb shell dpm remove-active-admin app.secondway.lock/.DeviceAdminReceiver</string>
     <string name="button_remove_device_owner">Remove Device Owner (then you can uninstall)</string>
     <string name="toast_not_device_owner">Not Device Owner</string>
     <string name="toast_device_owner_removed">Device Owner removed. You can now uninstall the app from Settings.</string>

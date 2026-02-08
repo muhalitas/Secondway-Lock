@@ -1,2 +1,2 @@
 # Add project specific ProGuard rules here.
--keep class com.recoverylock.dpc.DeviceAdminReceiver { *; }
+-keep class app.secondway.lock.DeviceAdminReceiver { *; }

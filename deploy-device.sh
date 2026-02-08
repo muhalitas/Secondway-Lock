@@ -5,7 +5,7 @@ cd "$(dirname "$0")"
 
 JAVA_HOME="${JAVA_HOME:-/Applications/Android Studio.app/Contents/jbr/Contents/Home}"
 APK="app/build/outputs/apk/debug/app-debug.apk"
-PKG="com.recoverylock.dpc"
+PKG="app.secondway.lock"
 ACTIVITY=".MainActivity"
 
 if ! command -v adb >/dev/null 2>&1; then

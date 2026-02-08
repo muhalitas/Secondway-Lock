@@ -36,9 +36,9 @@ Kendi Android cihazınızda **Device Owner** yetkisiyle (DPC / Device Policy Con
 
 4. **Device Owner atayın** (cihazda **hesap olmamalı**; gerekirse fabrika sıfırı yapıp kurulumda hesap eklemeyin):
    ```bash
-   adb shell dpm set-device-owner com.recoverylock.dpc/.DeviceAdminReceiver
+   adb shell dpm set-device-owner app.secondway.lock/.DeviceAdminReceiver
    ```
-   Başarılı olursa: `Success: Device owner set to package com.recoverylock.dpc`.
+   Başarılı olursa: `Success: Device owner set to package app.secondway.lock`.
 
 5. Uygulamayı açıp **“Kısıtlamaları Uygula”** butonuna basın.
 
@@ -58,7 +58,7 @@ Kendi Android cihazınızda **Device Owner** yetkisiyle (DPC / Device Policy Con
 Cihazı tekrar tam kontrol etmek isterseniz:
 
 ```bash
-adb shell dpm remove-active-admin com.recoverylock.dpc/.DeviceAdminReceiver
+adb shell dpm remove-active-admin app.secondway.lock/.DeviceAdminReceiver
 ```
 
 Ardından uygulamayı kaldırabilirsiniz.
