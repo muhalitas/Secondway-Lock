@@ -21,6 +21,7 @@ object NewAppLockStore {
         prefs(context).getStringSet(KEY_NEW_PACKAGES, emptySet())?.toSet() ?: emptySet()
 
     fun addNewPackage(context: Context, packageName: String) {
+        if (packageName == context.packageName) return
         addTrackedPackage(context, packageName)
         val p = prefs(context)
         val current = p.getStringSet(KEY_NEW_PACKAGES, emptySet())?.toMutableSet() ?: mutableSetOf()
@@ -37,6 +38,7 @@ object NewAppLockStore {
         prefs(context).getStringSet(KEY_ALLOWED_PACKAGES, emptySet())?.contains(packageName) == true
 
     fun setAllowed(context: Context, packageName: String, allowed: Boolean) {
+        if (packageName == context.packageName) return
         addTrackedPackage(context, packageName)
         val p = prefs(context)
         val current = p.getStringSet(KEY_ALLOWED_PACKAGES, emptySet())?.toMutableSet() ?: mutableSetOf()
@@ -58,6 +60,7 @@ object NewAppLockStore {
     }
 
     fun addTrackedPackage(context: Context, packageName: String) {
+        if (packageName == context.packageName) return
         val p = prefs(context)
         val current = p.getStringSet(KEY_TRACKED_PACKAGES, emptySet())?.toMutableSet() ?: mutableSetOf()
         if (current.add(packageName)) {
@@ -85,6 +88,7 @@ object NewAppLockStore {
         prefs(context).getLong(KEY_PENDING_UNLOCK_PREFIX + packageName, 0L)
 
     fun setPendingUnlockEndMillis(context: Context, packageName: String, endTimeMillis: Long) {
+        if (packageName == context.packageName) return
         addTrackedPackage(context, packageName)
         setAllowed(context, packageName, true)
         prefs(context).edit().putLong(KEY_PENDING_UNLOCK_PREFIX + packageName, endTimeMillis).apply()
@@ -103,6 +107,7 @@ object NewAppLockStore {
     }
 
     fun setBlocked(context: Context, packageName: String) {
+        if (packageName == context.packageName) return
         setAllowed(context, packageName, false)
         clearPendingUnlock(context, packageName)
         addTrackedPackage(context, packageName)

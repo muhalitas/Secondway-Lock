@@ -13,6 +13,7 @@ class PackageAddedReceiver : BroadcastReceiver() {
         if (intent.action != Intent.ACTION_PACKAGE_ADDED) return
         if (intent.getBooleanExtra(Intent.EXTRA_REPLACING, false)) return
         val pkg = intent.data?.schemeSpecificPart ?: return
+        if (pkg == context.packageName) return
 
         // Avoid losing work if the process is killed right after returning from onReceive.
         val pendingResult = goAsync()

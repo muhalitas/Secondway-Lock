@@ -8,6 +8,7 @@ object LockHelper {
     private const val KEY_LOCK_DURATION_PENDING_SECONDS = "lock_duration_pending_seconds"
     private const val KEY_PENDING_PROTECTION_OFF_END = "pending_protection_off_end"
     private const val KEY_DURATION_DISPLAY_DEFER_UNTIL = "duration_display_defer_until"
+    private const val KEY_BATTERY_OPT_CARD_DISMISSED = "battery_opt_card_dismissed"
     private const val MAX_DURATION = 86400 // 1 day
 
     private fun prefs(context: Context) =
@@ -70,6 +71,13 @@ object LockHelper {
             .remove(KEY_LOCK_DURATION_PENDING_SECONDS)
             .remove(KEY_DURATION_DISPLAY_DEFER_UNTIL)
             .apply()
+    }
+
+    fun isBatteryOptCardDismissed(context: Context): Boolean =
+        prefs(context).getBoolean(KEY_BATTERY_OPT_CARD_DISMISSED, false)
+
+    fun setBatteryOptCardDismissed(context: Context, dismissed: Boolean) {
+        prefs(context).edit().putBoolean(KEY_BATTERY_OPT_CARD_DISMISSED, dismissed).apply()
     }
 
     /**

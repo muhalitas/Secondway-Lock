@@ -58,6 +58,7 @@ object PolicyHelper {
     fun setPackageSuspended(context: Context, packageName: String, suspended: Boolean): Boolean {
         if (!isDeviceOwner(context)) return false
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) return false
+        if (packageName == context.packageName && suspended) return false
         val pair = getDpmAndAdmin(context) ?: return false
         val (dpm, admin) = pair
         val failed = dpm.setPackagesSuspended(admin, arrayOf(packageName), suspended) ?: emptyArray()
@@ -72,6 +73,7 @@ object PolicyHelper {
         val pair = getDpmAndAdmin(context) ?: return false
         val (dpm, admin) = pair
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) return false
+        if (packageName == context.packageName && blocked) return false
 
         // Migration: older builds used "hidden". Some OEMs don't clear it while suspended, so:
         // un-suspend (still hidden => not launchable), unhide, then suspend again.

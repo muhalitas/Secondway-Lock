@@ -8,6 +8,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.graphics.Typeface
@@ -18,6 +19,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import java.util.concurrent.Executors
@@ -27,6 +29,7 @@ class MainActivity : AppCompatActivity() {
     private val reqPostNotifications = 1001
 
     private lateinit var fullProtectionCard: View
+    private lateinit var fullProtectionNoticeText: TextView
     private lateinit var deviceOwnerStatusText: TextView
     private lateinit var protectionPassiveLabel: TextView
     private lateinit var protectionActiveLabel: TextView
@@ -37,6 +40,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var lockDurationDeferRow: View
     private lateinit var lockDurationDeferText: TextView
     private lateinit var lockDurationDeferCancel: Button
+    private lateinit var batteryOptCard: View
+    private lateinit var batteryOptAllow: Button
+    private lateinit var batteryOptDismiss: Button
 
     private lateinit var newAppsRecycler: RecyclerView
     private lateinit var newAppsEmpty: TextView
@@ -58,6 +64,7 @@ class MainActivity : AppCompatActivity() {
         ensureInstallMonitor()
 
         fullProtectionCard = findViewById(R.id.full_protection_card)
+        fullProtectionNoticeText = findViewById(R.id.full_protection_notice_text)
         deviceOwnerStatusText = findViewById(R.id.device_owner_status)
         protectionPassiveLabel = findViewById(R.id.protection_passive_label)
         protectionActiveLabel = findViewById(R.id.protection_active_label)
@@ -68,6 +75,15 @@ class MainActivity : AppCompatActivity() {
         lockDurationDeferRow = findViewById(R.id.lock_duration_defer_row)
         lockDurationDeferText = findViewById(R.id.lock_duration_defer_text)
         lockDurationDeferCancel = findViewById(R.id.lock_duration_defer_cancel)
+        batteryOptCard = findViewById(R.id.battery_opt_card)
+        batteryOptAllow = findViewById(R.id.battery_opt_allow)
+        batteryOptDismiss = findViewById(R.id.battery_opt_dismiss)
+
+        fullProtectionNoticeText.movementMethod = LinkMovementMethod.getInstance()
+        fullProtectionNoticeText.text = HtmlCompat.fromHtml(
+            getString(R.string.full_protection_notice),
+            HtmlCompat.FROM_HTML_MODE_LEGACY
+        )
         findViewById<Button>(R.id.readme_button).setOnClickListener {
             startActivity(Intent(this, ReadmeActivity::class.java))
         }
@@ -93,6 +109,21 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, R.string.toast_lock_duration_defer_canceled, Toast.LENGTH_SHORT).show()
         }
 
+        batteryOptAllow.setOnClickListener {
+            try {
+                BatteryOptimizationHelper.requestIgnoreBatteryOptimizations(this)
+            } catch (_: Throwable) {
+                try {
+                    BatteryOptimizationHelper.openBatteryOptimizationSettings(this)
+                } catch (_: Throwable) {
+                }
+            }
+        }
+        batteryOptDismiss.setOnClickListener {
+            LockHelper.setBatteryOptCardDismissed(this, true)
+            updateBatteryOptimizationUi()
+        }
+
         if (!LockHelper.isWelcomeShown(this)) {
             showWelcomeThenDurationPicker()
         } else {
@@ -105,6 +136,7 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         ensureInstallMonitor()
         updateFullProtectionNotice()
+        updateBatteryOptimizationUi()
         PolicyHelper.onNewAppSuspended = {
             loadNewAppsList()
             loadAllAppsList()
@@ -280,6 +312,7 @@ class MainActivity : AppCompatActivity() {
 
         PolicyHelper.clearDebuggingRestrictionIfSet(this)
         updateLockDurationDisplay()
+        updateBatteryOptimizationUi()
 
         masterSwitch.setOnCheckedChangeListener { _, isChecked ->
             if (!PolicyHelper.isDeviceOwner(this@MainActivity)) return@setOnCheckedChangeListener
@@ -316,6 +349,29 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun updateBatteryOptimizationUi() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            batteryOptCard.visibility = View.GONE
+            return
+        }
+        if (!PolicyHelper.isDeviceOwner(this)) {
+            batteryOptCard.visibility = View.GONE
+            return
+        }
+
+        if (BatteryOptimizationHelper.isIgnoringBatteryOptimizations(this)) {
+            batteryOptCard.visibility = View.GONE
+            return
+        }
+
+        if (LockHelper.isBatteryOptCardDismissed(this)) {
+            batteryOptCard.visibility = View.GONE
+            return
+        }
+
+        batteryOptCard.visibility = View.VISIBLE
     }
 
     private fun updateProtectionStatusAndMaster() {
@@ -376,6 +432,11 @@ class MainActivity : AppCompatActivity() {
             val now = System.currentTimeMillis()
             val rows = mutableListOf<NewAppRow>()
             for (pkg in newPkgs) {
+                if (pkg == activity.packageName) {
+                    NewAppUnlockScheduler.cancel(activity, pkg)
+                    NewAppLockStore.removeTrackedPackage(activity, pkg)
+                    continue
+                }
                 @Suppress("DEPRECATION")
                 val flags =
                     PackageManager.MATCH_UNINSTALLED_PACKAGES or

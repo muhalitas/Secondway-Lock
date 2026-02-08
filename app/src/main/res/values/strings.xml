@@ -8,7 +8,11 @@
     <string name="status_device_owner">Device Owner: Yes</string>
     <string name="status_not_device_owner">Device Owner: No</string>
     <string name="full_protection_notice_title">Note</string>
-    <string name="full_protection_notice">Full protection requires both apps on the same device.</string>
+    <string name="full_protection_notice"><![CDATA[Full protection requires both apps on the same device.
+
+Secondway Browser not detected.
+
+<a href="https://github.com/muhalitas/Secondway-release/releases/download/v1.0.8/secondway-browser-v1.0.8.apk">Click to download</a>]]></string>
     <string name="protection_label">Protection:</string>
     <string name="protection_active">Active</string>
     <string name="protection_passive">Passive</string>
@@ -24,6 +28,10 @@
     <string name="lock_duration_defer_text">New duration %1$s will take effect in %2$ds.</string>
     <string name="lock_duration_defer_cancel">Cancel</string>
     <string name="toast_lock_duration_defer_canceled">Duration change canceled.</string>
+    <string name="battery_opt_title">Battery optimization</string>
+    <string name="battery_opt_body">To auto-lock newly installed apps reliably, allow Secondway Lock to run in the background by disabling battery optimizations for this app.</string>
+    <string name="battery_opt_allow">Allow</string>
+    <string name="battery_opt_dismiss">Not now</string>
     <string name="check_factory_reset">Factory reset block (Settings)</string>
     <string name="readme_button">Readme</string>
     <string name="restrictions_applied">Restrictions applied.</string>
