@@ -22,10 +22,9 @@ adb devices -l
 
 echo ""
 echo "Installing to USB device..."
-adb -d install -r "$APK"
+adb -d install -r -t "$APK" || adb -d install -r -t "$APK"
 
 echo "Launching..."
 adb -d shell am start -n "$PKG/$ACTIVITY" >/dev/null
 
 echo "Done."
-
