@@ -5,6 +5,8 @@ import java.util.Locale
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("app.cash.paparazzi")
+
     // Firebase/Google Sign-In: only apply google-services plugin when a google-services.json is present.
     // This keeps CI + public repo builds working without committing secrets.
     id("com.google.gms.google-services") apply false
@@ -68,4 +70,7 @@ dependencies {
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.firebase:firebase-firestore-ktx")
     implementation("com.google.android.gms:play-services-auth:21.2.0")
+
+    // Paparazzi (JVM snapshot tests)
+    testImplementation("junit:junit:4.13.2")
 }

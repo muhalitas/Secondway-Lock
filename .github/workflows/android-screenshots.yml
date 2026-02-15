@@ -2,8 +2,7 @@ name: Android Screenshots
 
 on:
   workflow_dispatch:
-  push:
-    branches: ["main"]
+  # Emulator screenshots are slow/flaky; run on-demand instead of on every push.
 
 jobs:
   screenshots:

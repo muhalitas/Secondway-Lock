@@ -30,6 +30,16 @@ jobs:
       - name: Build Debug APK
         run: ./gradlew :app:assembleDebug
 
+      - name: JVM UI snapshots (Paparazzi)
+        run: ./gradlew :app:testDebugUnitTest
+
+      - name: Upload Paparazzi snapshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: paparazzi-snapshots
+          path: app/build/paparazzi/**
+          if-no-files-found: error
+
       - name: Upload Debug APK artifact
         uses: actions/upload-artifact@v4
         with:
