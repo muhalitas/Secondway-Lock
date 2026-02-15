@@ -5,7 +5,16 @@ import java.util.Locale
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("com.google.gms.google-services")
+    // Firebase/Google Sign-In: only apply google-services plugin when a google-services.json is present.
+    // This keeps CI + public repo builds working without committing secrets.
+    id("com.google.gms.google-services") apply false
+}
+
+// Apply google-services if config exists (either per-variant or at module root).
+if (file("google-services.json").exists() ||
+    file("src/debug/google-services.json").exists() ||
+    file("src/release/google-services.json").exists()) {
+    apply(plugin = "com.google.gms.google-services")
 }
 
 android {
