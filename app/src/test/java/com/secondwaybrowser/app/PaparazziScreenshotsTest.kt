@@ -1,7 +1,9 @@
 package com.secondwaybrowser.app
 
+import android.view.LayoutInflater
 import app.cash.paparazzi.DeviceConfig
 import app.cash.paparazzi.Paparazzi
+import com.secondwaybrowser.app.R
 import org.junit.Rule
 import org.junit.Test
 
@@ -20,29 +22,28 @@ class PaparazziScreenshotsTest {
     @Test
     fun splash() {
         paparazzi.snapshot(name = "01_splash") {
-            it.inflate(R.layout.activity_splash)
+            LayoutInflater.from(this).inflate(R.layout.activity_splash, null, false)
         }
     }
 
     @Test
     fun onboarding_shell() {
         paparazzi.snapshot(name = "02_onboarding_shell") {
-            it.inflate(R.layout.activity_onboarding)
+            LayoutInflater.from(this).inflate(R.layout.activity_onboarding, null, false)
         }
     }
 
     @Test
     fun settings() {
         paparazzi.snapshot(name = "03_settings") {
-            it.inflate(R.layout.activity_settings)
+            LayoutInflater.from(this).inflate(R.layout.activity_settings, null, false)
         }
     }
 
     @Test
     fun guard_intervention() {
-        // This layout is in lock module package but same res namespace.
         paparazzi.snapshot(name = "04_guard_intervention") {
-            it.inflate(app.secondway.lock.R.layout.activity_guard_intervention)
+            LayoutInflater.from(this).inflate(app.secondway.lock.R.layout.activity_guard_intervention, null, false)
         }
     }
 
@@ -50,7 +51,7 @@ class PaparazziScreenshotsTest {
     @Test
     fun browser_main_shell() {
         paparazzi.snapshot(name = "05_browser_main_shell") {
-            it.inflate(R.layout.activity_main)
+            LayoutInflater.from(this).inflate(R.layout.activity_main, null, false)
         }
     }
 }
