@@ -31,14 +31,23 @@ jobs:
         run: ./gradlew :app:assembleDebug
 
       - name: JVM UI snapshots (Paparazzi)
-        run: ./gradlew :app:testDebugUnitTest
+        run: ./gradlew :app:testDebugUnitTest --stacktrace
 
       - name: Upload Paparazzi snapshots
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: paparazzi-snapshots
           path: app/build/paparazzi/**
-          if-no-files-found: error
+          if-no-files-found: warn
+
+      - name: Upload unit test reports (for debugging)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: unit-test-reports
+          path: app/build/reports/tests/**
+          if-no-files-found: warn
 
       - name: Upload Debug APK artifact
         uses: actions/upload-artifact@v4
