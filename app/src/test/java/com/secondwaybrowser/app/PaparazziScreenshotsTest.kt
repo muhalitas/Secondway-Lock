@@ -3,7 +3,7 @@ package com.secondwaybrowser.app
 import android.view.LayoutInflater
 import app.cash.paparazzi.DeviceConfig
 import app.cash.paparazzi.Paparazzi
-import com.secondwaybrowser.app.R
+import app.secondway.lock.R
 import org.junit.Rule
 import org.junit.Test
 
@@ -43,7 +43,7 @@ class PaparazziScreenshotsTest {
     @Test
     fun guard_intervention() {
         paparazzi.snapshot(name = "04_guard_intervention") {
-            LayoutInflater.from(this).inflate(app.secondway.lock.R.layout.activity_guard_intervention, null, false)
+            LayoutInflater.from(this).inflate(R.layout.activity_guard_intervention, null, false)
         }
     }
 
