@@ -35,7 +35,7 @@ jobs:
           emulator-options: -no-window -no-audio -no-snapshot -gpu swiftshader_indirect
           disable-animations: true
           script: |
-            set -euxo pipefail
+            set -eux
             mkdir -p screenshots
             APK=$(ls app/build/outputs/apk/debug/*.apk | head -n 1)
             adb install -r "$APK"
