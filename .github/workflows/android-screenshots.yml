@@ -1,0 +1,80 @@
+name: Android Screenshots
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+
+jobs:
+  screenshots:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: gradle
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Build Debug APK
+        run: ./gradlew :app:assembleDebug
+
+      - name: Run emulator + capture screenshots
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 34
+          arch: x86_64
+          profile: pixel_6
+          emulator-options: -no-window -no-audio -no-snapshot -gpu swiftshader_indirect
+          disable-animations: true
+          script: |
+            set -euxo pipefail
+            mkdir -p screenshots
+            APK=$(ls app/build/outputs/apk/debug/*.apk | head -n 1)
+            adb install -r "$APK"
+
+            # Speed up UI rendering and reduce flakiness
+            adb shell settings put global transition_animation_scale 0 || true
+            adb shell settings put global window_animation_scale 0 || true
+            adb shell settings put global animator_duration_scale 0 || true
+
+            PKG=com.secondwaybrowser.app
+
+            # Splash
+            adb shell am start -n "$PKG/com.secondwaybrowser.app.SplashActivity"
+            sleep 2
+            adb exec-out screencap -p > screenshots/01_splash.png
+
+            # Onboarding
+            adb shell am start -n "$PKG/com.secondwaybrowser.app.OnboardingActivity"
+            sleep 2
+            adb exec-out screencap -p > screenshots/02_onboarding.png
+
+            # Browser main
+            adb shell am start -n "$PKG/com.secondwaybrowser.app.MainActivity"
+            sleep 3
+            adb exec-out screencap -p > screenshots/03_browser_main.png
+
+            # Settings
+            adb shell am start -n "$PKG/com.secondwaybrowser.app.SettingsActivity"
+            sleep 2
+            adb exec-out screencap -p > screenshots/04_settings.png
+
+            # Guard / intervention overlay activity
+            adb shell am start -n "$PKG/app.secondway.lock.GuardInterventionActivity"
+            sleep 1
+            adb exec-out screencap -p > screenshots/05_guard_intervention.png
+
+      - name: Upload screenshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshots
+          path: screenshots/*.png
+          if-no-files-found: error
