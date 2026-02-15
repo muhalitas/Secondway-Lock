@@ -7,7 +7,6 @@ import android.content.pm.PackageInfo
 object NewAppReconciler {
 
     fun reconcile(context: Context): Int {
-        if (!PolicyHelper.isDeviceOwner(context)) return 0
         val alreadyTracked = NewAppLockStore.getTrackedPackages(context)
 
         val pm = context.packageManager

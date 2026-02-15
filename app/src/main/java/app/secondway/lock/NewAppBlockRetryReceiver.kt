@@ -8,7 +8,6 @@ class NewAppBlockRetryReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         if (intent.action != ACTION_RETRY_BLOCK) return
-        if (!PolicyHelper.isDeviceOwner(context)) return
         val pkg = intent.getStringExtra(EXTRA_PACKAGE_NAME) ?: return
         val attempt = intent.getIntExtra(EXTRA_ATTEMPT, 1).coerceIn(1, 8)
 

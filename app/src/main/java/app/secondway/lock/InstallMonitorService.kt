@@ -10,8 +10,10 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Build
 import android.os.IBinder
+import android.content.pm.ServiceInfo
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
+import android.util.Log
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -67,8 +69,9 @@ class InstallMonitorService : Service() {
 
         // Keep service alive on OEMs that aggressively kill background work.
         try {
-            startForeground(NOTIFICATION_ID, buildNotification())
-        } catch (_: Throwable) {
+            startInForeground()
+        } catch (t: Throwable) {
+            Log.e(TAG, "startForeground failed", t)
             // If notifications are blocked (Android 13+), we can't run as FGS.
             stopSelf()
             return START_NOT_STICKY
@@ -150,7 +153,21 @@ class InstallMonitorService : Service() {
             .build()
     }
 
+    private fun startInForeground() {
+        val notification = buildNotification()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            startForeground(
+                NOTIFICATION_ID,
+                notification,
+                ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC
+            )
+        } else {
+            startForeground(NOTIFICATION_ID, notification)
+        }
+    }
+
     companion object {
+        private const val TAG = "InstallMonitorService"
         const val ACTION_START = "app.secondway.lock.action.MONITOR_START"
         const val ACTION_STOP = "app.secondway.lock.action.MONITOR_STOP"
 

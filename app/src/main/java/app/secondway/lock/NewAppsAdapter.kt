@@ -1,6 +1,7 @@
 package app.secondway.lock
 
 import android.graphics.drawable.Drawable
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -50,10 +51,16 @@ class NewAppsAdapter(
         holder.label.text = item.label
 
         val isUnlocking = item.pendingUnlockEndMillis > nowMillis
-        val remainingSec = if (!isUnlocking) 0 else ((item.pendingUnlockEndMillis - nowMillis) / 1000).toInt().coerceAtLeast(1)
+        val remainingSec = if (!isUnlocking) 0 else {
+            val remainingMs = item.pendingUnlockEndMillis - nowMillis
+            ((remainingMs + 999) / 1000).toInt().coerceAtLeast(1)
+        }
         holder.status.text = if (isUnlocking) {
-            holder.itemView.context.getString(R.string.countdown_unlocking, remainingSec)
-        } else if (item.desiredAllowed && !item.isActuallyBlocked) {
+            val h = remainingSec / 3600
+            val m = (remainingSec % 3600) / 60
+            val s = remainingSec % 60
+            holder.itemView.context.getString(R.string.countdown_unlocking_hms, h, m, s)
+        } else if (item.desiredAllowed) {
             holder.itemView.context.getString(R.string.new_apps_item_allowed)
         } else {
             holder.itemView.context.getString(R.string.new_apps_item_blocked)
@@ -62,6 +69,29 @@ class NewAppsAdapter(
         holder.switch.setOnCheckedChangeListener(null)
         holder.switch.isChecked = item.desiredAllowed
         holder.switch.isEnabled = true
+        if (isUnlocking) {
+            val ctx = holder.itemView.context
+            val thumb = ContextCompat.getColor(ctx, R.color.switch_pending_thumb)
+            val track = ContextCompat.getColor(ctx, R.color.switch_pending_track)
+            holder.switch.thumbTintList = ColorStateList.valueOf(thumb)
+            holder.switch.trackTintList = ColorStateList.valueOf(track)
+        } else {
+            val ctx = holder.itemView.context
+            val states = arrayOf(
+                intArrayOf(android.R.attr.state_checked),
+                intArrayOf(-android.R.attr.state_checked)
+            )
+            val thumbColors = intArrayOf(
+                ContextCompat.getColor(ctx, R.color.switch_on_thumb),
+                ContextCompat.getColor(ctx, R.color.switch_off_thumb)
+            )
+            val trackColors = intArrayOf(
+                ContextCompat.getColor(ctx, R.color.switch_on_track),
+                ContextCompat.getColor(ctx, R.color.switch_off_track)
+            )
+            holder.switch.thumbTintList = ColorStateList(states, thumbColors)
+            holder.switch.trackTintList = ColorStateList(states, trackColors)
+        }
         holder.switch.setOnCheckedChangeListener { _, isChecked ->
             onSwitchChanged(item, isChecked)
         }

@@ -6,6 +6,9 @@ build/
 .gradle/
 local.properties
 
+# Secrets / per-project config
+app/google-services.json
+
 # IDE
 .idea/
 *.iml
@@ -16,4 +19,3 @@ local.properties
 # Tooling
 .cursor/
 .gradle-home/
-

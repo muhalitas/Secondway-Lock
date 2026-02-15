@@ -5,20 +5,23 @@ import java.util.Locale
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.google.gms.google-services")
 }
 
 android {
     namespace = "app.secondway.lock"
     compileSdk = 34
     defaultConfig {
-        applicationId = "app.secondway.lock"
+        // Keep the app id aligned with google-services.json (Firebase).
+        applicationId = "com.secondwaybrowser.app"
         minSdk = 24
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 11
+        versionName = "1.0.11"
         val buildTime = SimpleDateFormat("HH:mm", Locale.US).format(Date())
         buildConfigField("String", "BUILD_TIME", "\"$buildTime\"")
         resValue("string", "build_time_display", "Build: $buildTime")
+        resValue("string", "build_time_value", buildTime)
     }
     buildTypes {
         release {
@@ -43,4 +46,17 @@ dependencies {
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.recyclerview:recyclerview:1.3.2")
+
+    // Browser module dependencies (merged from SafeBrowser).
+    implementation("androidx.webkit:webkit:1.11.0")
+    implementation("androidx.fragment:fragment-ktx:1.6.2")
+    implementation("androidx.viewpager2:viewpager2:1.0.0")
+    implementation("androidx.cardview:cardview:1.0.0")
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+
+    // Firebase allowlist sync (Google Sign-In + Firestore).
+    implementation(platform("com.google.firebase:firebase-bom:33.6.0"))
+    implementation("com.google.firebase:firebase-auth-ktx")
+    implementation("com.google.firebase:firebase-firestore-ktx")
+    implementation("com.google.android.gms:play-services-auth:21.2.0")
 }

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/clear_browsing_data_time_range"
+        android:textStyle="bold"
+        android:textColor="#202124"
+        android:textSize="14sp"
+        android:paddingBottom="6dp" />
+
+    <RadioGroup
+        android:id="@+id/clear_time_range"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/range_last_hour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/clear_time_last_hour" />
+
+        <RadioButton
+            android:id="@+id/range_last_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/clear_time_last_24_hours" />
+
+        <RadioButton
+            android:id="@+id/range_last_week"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/clear_time_last_7_days" />
+
+        <RadioButton
+            android:id="@+id/range_last_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/clear_time_last_4_weeks" />
+
+        <RadioButton
+            android:id="@+id/range_all_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/clear_time_all_time" />
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/clear_browsing_data_options"
+        android:textStyle="bold"
+        android:textColor="#202124"
+        android:textSize="14sp"
+        android:paddingTop="12dp"
+        android:paddingBottom="6dp" />
+
+    <CheckBox
+        android:id="@+id/clear_history"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/clear_browsing_history"
+        android:checked="true" />
+
+    <CheckBox
+        android:id="@+id/clear_cookies"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/clear_cookies_site_data"
+        android:checked="true" />
+
+    <CheckBox
+        android:id="@+id/clear_cache"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/clear_cached_images_files"
+        android:checked="true" />
+</LinearLayout>

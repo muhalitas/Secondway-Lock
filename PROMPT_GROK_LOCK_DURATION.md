@@ -2,7 +2,7 @@
 
 ## Problem
 
-Android uygulama: **Secondway Lock** (Kotlin, Device Owner DPC). Kullanıcı **protection** switch'ini OFF yaptığında, ayarlanan **lock duration** kadar bekleyip sonra factory reset kısıtlaması kalkıyor (geri sayım var).
+Android uygulama: **Secondway Lock** (Kotlin, soft mode). Kullanıcı **protection** switch'ini OFF yaptığında, ayarlanan **lock duration** kadar bekleyip sonra uygulama içi koruma state'i kapanıyor (geri sayım var).
 
 Kullanıcı geri sayım devam ederken **Lock duration** değerini değiştirebiliyor (ana ekranda "Lock duration" satırına tıklayıp picker’dan yeni süre seçiyor). İstenen davranış:
 

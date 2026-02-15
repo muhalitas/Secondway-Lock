@@ -8,7 +8,6 @@ class BootCompletedReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         if (intent.action != Intent.ACTION_BOOT_COMPLETED) return
-        if (!PolicyHelper.isDeviceOwner(context)) return
 
         // Keep background install monitoring alive after reboot.
         try {

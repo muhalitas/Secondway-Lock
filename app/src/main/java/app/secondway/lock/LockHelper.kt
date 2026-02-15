@@ -4,6 +4,7 @@ object LockHelper {
 
     private const val PREFS_NAME = "lock_prefs"
     private const val KEY_WELCOME_SHOWN = "welcome_shown"
+    private const val KEY_ONBOARDING_STEP = "onboarding_step"
     private const val KEY_LOCK_DURATION_SECONDS = "lock_duration_seconds"
     private const val KEY_LOCK_DURATION_PENDING_SECONDS = "lock_duration_pending_seconds"
     private const val KEY_PENDING_PROTECTION_OFF_END = "pending_protection_off_end"
@@ -19,6 +20,17 @@ object LockHelper {
 
     fun setWelcomeShown(context: Context) {
         prefs(context).edit().putBoolean(KEY_WELCOME_SHOWN, true).apply()
+    }
+
+    fun getOnboardingStep(context: Context): Int =
+        prefs(context).getInt(KEY_ONBOARDING_STEP, 0)
+
+    fun setOnboardingStep(context: Context, step: Int) {
+        prefs(context).edit().putInt(KEY_ONBOARDING_STEP, step.coerceAtLeast(0)).apply()
+    }
+
+    fun clearOnboardingStep(context: Context) {
+        prefs(context).edit().remove(KEY_ONBOARDING_STEP).apply()
     }
 
     fun getLockDurationSeconds(context: Context): Int {

@@ -1,306 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="24dp"
-    android:fillViewport="true">
+    android:orientation="vertical"
+    android:padding="6dp">
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <ProgressBar
+        android:id="@+id/load_progress"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:max="100"
+        android:progress="0"
+        android:visibility="gone"
+        android:progressTint="#1A73E8"
+        android:progressBackgroundTint="#DADCE0" />
 
     <LinearLayout
+        android:id="@+id/toolbar_url_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="#F1F3F4"
+        android:paddingStart="6dp"
+        android:paddingEnd="6dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        android:layout_marginTop="6dp">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/app_name"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:layout_marginBottom="8dp" />
+        <ImageButton
+            android:id="@+id/btn_home"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_home"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/btn_home"
+            android:scaleType="centerInside"
+            android:padding="8dp"
+            android:tint="#5F6368" />
 
-        <TextView
-            android:id="@+id/build_time"
-            android:layout_width="match_parent"
+        <FrameLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/build_time_display"
-            android:textSize="12sp"
-            android:textColor="#757575"
-            android:gravity="center"
-            android:layout_marginBottom="8dp" />
+            android:layout_weight="1"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp">
 
-        <TextView
-            android:id="@+id/device_owner_status"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:layout_marginBottom="16dp"
-            android:text="@string/status_not_device_owner" />
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/full_protection_card"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:visibility="gone"
-            app:cardBackgroundColor="#FFF3E0"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="2dp"
-            app:strokeColor="#E65100"
-            app:strokeWidth="1dp">
-            <LinearLayout
+            <EditText
+                android:id="@+id/url_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="12dp">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/full_protection_notice_title"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:textColor="#E65100" />
-                <TextView
-                    android:id="@+id/full_protection_notice_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="@string/full_protection_notice"
-                    android:textSize="13sp"
-                    android:textColor="#BF360C"
-                    android:lineSpacingExtra="2dp" />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/lock_duration_card"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:clickable="true"
-            android:focusable="true"
-            app:cardElevation="2dp"
-            app:cardCornerRadius="12dp"
-            app:strokeWidth="0dp">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:padding="16dp"
-                android:minHeight="56dp">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/lock_duration_label"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:maxLines="1"
-                    android:ellipsize="end" />
-                <TextView
-                    android:id="@+id/lock_duration_display"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="15sp"
-                    android:textColor="?attr/colorPrimary"
-                    android:layout_marginEnd="8dp" />
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@android:drawable/ic_menu_more"
-                    android:contentDescription="@null"
-                    android:alpha="0.6" />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <LinearLayout
-            android:id="@+id/lock_duration_defer_row"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginBottom="8dp"
-            android:visibility="gone">
-
-            <TextView
-                android:id="@+id/lock_duration_defer_text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textSize="13sp"
-                android:textColor="#E65100" />
-
-            <Button
-                android:id="@+id/lock_duration_defer_cancel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:minHeight="40dp"
-                android:text="@string/lock_duration_defer_cancel" />
-        </LinearLayout>
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/battery_opt_card"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:visibility="gone"
-            app:cardBackgroundColor="#E8F5E9"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="2dp"
-            app:strokeColor="#1B5E20"
-            app:strokeWidth="1dp">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="12dp">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/battery_opt_title"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:textColor="#1B5E20" />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="@string/battery_opt_body"
-                    android:textSize="13sp"
-                    android:textColor="#2E7D32"
-                    android:lineSpacingExtra="2dp" />
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="end"
-                    android:layout_marginTop="8dp">
-                    <Button
-                        android:id="@+id/battery_opt_dismiss"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:minHeight="40dp"
-                        android:text="@string/battery_opt_dismiss" />
-                    <Button
-                        android:id="@+id/battery_opt_allow"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:minHeight="40dp"
-                        android:layout_marginStart="8dp"
-                        android:text="@string/battery_opt_allow" />
-                </LinearLayout>
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <TextView
-            android:id="@+id/protection_countdown"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="13sp"
-            android:textColor="#E65100"
-            android:visibility="gone"
-            android:layout_marginBottom="4dp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginBottom="8dp">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/protection_label"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-            <TextView
-                android:id="@+id/protection_passive_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/protection_passive"
+                android:paddingStart="12dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:paddingEnd="52dp"
+                android:maxLines="1"
+                android:inputType="textUri"
+                android:imeOptions="actionGo"
+                android:background="@drawable/bg_url_bar"
+                android:hint="@string/url_bar_hint"
                 android:textSize="14sp"
-                android:layout_marginEnd="8dp" />
-            <Switch
-                android:id="@+id/master_switch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:minHeight="48dp"
-                android:paddingVertical="8dp" />
+                android:textColor="#202124"
+                android:textColorHint="#5F6368" />
+
+            <ImageButton
+                android:id="@+id/btn_lock"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginEnd="4dp"
+                android:src="@drawable/ic_clover"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/open_lock_screen"
+                android:scaleType="centerInside"
+                android:padding="10dp"
+                android:tint="#5F6368" />
+        </FrameLayout>
+
+        <ImageButton
+            android:id="@+id/btn_add_tab"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_add_tab"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/btn_add_tab"
+            android:scaleType="centerInside"
+            android:padding="8dp"
+            android:tint="#5F6368" />
+
+        <ImageButton
+            android:id="@+id/btn_allowlist"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_allowlist_add"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/allowlist_add_site"
+            android:scaleType="centerInside"
+            android:padding="8dp"
+            android:tint="#5F6368" />
+
+        <FrameLayout
+            android:id="@+id/toolbar_tabs_frame"
+            android:layout_width="48dp"
+            android:layout_height="48dp">
+
+            <ImageButton
+                android:id="@+id/btn_tabs"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_tabs"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/btn_tabs"
+                android:scaleType="centerInside"
+                android:padding="8dp"
+                android:tint="#5F6368" />
+
             <TextView
-                android:id="@+id/protection_active_label"
+                android:id="@+id/tab_count_badge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/protection_active"
-                android:textSize="14sp"
-                android:layout_marginStart="8dp" />
-        </LinearLayout>
+                android:layout_gravity="center"
+                android:background="@drawable/bg_tab_count_badge"
+                android:gravity="center"
+                android:minWidth="24dp"
+                android:minHeight="24dp"
+                android:paddingStart="6dp"
+                android:paddingEnd="6dp"
+                android:textColor="#5F6368"
+                android:textSize="12sp"
+                android:visibility="visible" />
+        </FrameLayout>
 
-        <Button
-            android:id="@+id/readme_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/readme_button"
-            android:layout_marginBottom="12dp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/new_apps_title"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="4dp" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/new_apps_subtitle"
-            android:textSize="13sp"
-            android:textColor="#757575"
-            android:layout_marginBottom="8dp" />
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/new_apps_list"
-            android:layout_width="match_parent"
-            android:layout_height="280dp"
-            android:nestedScrollingEnabled="true"
-            android:overScrollMode="never" />
-
-        <TextView
-            android:id="@+id/new_apps_empty"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/new_apps_empty"
-            android:visibility="gone"
-            android:textSize="14sp"
-            android:textColor="#757575"
-            android:paddingVertical="12dp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="@string/all_apps_title"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="4dp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/all_apps_subtitle"
-            android:textSize="13sp"
-            android:textColor="#757575"
-            android:layout_marginBottom="8dp" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/all_apps_list"
-            android:layout_width="match_parent"
-            android:layout_height="360dp"
-            android:nestedScrollingEnabled="true"
-            android:overScrollMode="never" />
+        <ImageButton
+            android:id="@+id/btn_more"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_more_vert"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/settings_menu"
+            android:scaleType="centerInside"
+            android:padding="8dp"
+            android:tint="#5F6368" />
     </LinearLayout>
-</ScrollView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_nav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#0B0F17"
+        app:itemIconTint="@color/bottom_nav_item_tint"
+        app:itemTextColor="@color/bottom_nav_item_tint"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/bottom_nav" />
+</LinearLayout>

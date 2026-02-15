@@ -11,7 +11,6 @@ class NewAppUnlockReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         if (intent.action != ACTION_UNLOCK) return
         val pkg = intent.getStringExtra(EXTRA_PACKAGE_NAME) ?: return
-        if (!PolicyHelper.isDeviceOwner(context)) return
         try {
             @Suppress("DEPRECATION")
             val flags = PackageManager.MATCH_UNINSTALLED_PACKAGES or PackageManager.MATCH_DISABLED_COMPONENTS

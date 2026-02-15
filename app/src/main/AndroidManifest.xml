@@ -2,10 +2,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
     <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" tools:ignore="QueryAllPackagesPermission" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
     <application
         android:name=".SecondwayLockApplication"
@@ -14,21 +20,67 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/ic_launcher"
         android:supportsRtl="true"
-        android:theme="@style/Theme.SecondwayLock">
+        android:theme="@style/Theme.SafeBrowser"
+        android:usesCleartextTraffic="true">
         <activity
-            android:name=".MainActivity"
+            android:name="com.secondwaybrowser.app.SplashActivity"
             android:exported="true"
-            android:theme="@style/Theme.SecondwayLock">
+            android:theme="@style/Theme.SafeBrowser.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
+            android:name="com.secondwaybrowser.app.MainActivity"
+            android:exported="true"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:theme="@style/Theme.SafeBrowser">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.secondwaybrowser.app.SettingsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SafeBrowser"
+            android:label="@string/settings_title" />
+        <activity
+            android:name="com.secondwaybrowser.app.OnboardingActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SafeBrowser" />
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SecondwayLock" />
+        <activity
             android:name=".ReadmeActivity"
             android:exported="false"
             android:theme="@style/Theme.SecondwayLock"
             android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SecondwayLock"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".FaqActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SecondwayLock"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".GuardInterventionActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:launchMode="singleTask"
+            android:noHistory="true"
+            android:taskAffinity=""
+            android:theme="@style/Theme.SecondwayLock" />
         <receiver
             android:name=".PackageAddedReceiver"
             android:exported="true">
@@ -60,19 +112,24 @@
         </receiver>
         <service
             android:name=".InstallMonitorService"
-            android:exported="false" />
-        <!-- Device Owner: adb shell dpm set-device-owner app.secondway.lock/.DeviceAdminReceiver -->
-        <receiver
-            android:name=".DeviceAdminReceiver"
-            android:label="@string/device_admin_label"
-            android:description="@string/device_admin_description"
-            android:permission="android.permission.BIND_DEVICE_ADMIN"
-            android:exported="true">
-            <meta-data
-                android:name="android.app.device_admin"
-                android:resource="@xml/device_admin" />
+            android:exported="false"
+            android:foregroundServiceType="dataSync" />
+        <service
+            android:name=".AccessibilityGuardService"
+            android:exported="false"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
             <intent-filter>
-                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility_guard_service" />
+        </service>
+        <receiver
+            android:name=".MyPackageReplacedReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
             </intent-filter>
         </receiver>
     </application>
