@@ -2,7 +2,20 @@ name: Android Screenshots
 
 on:
   workflow_dispatch:
-  # Emulator screenshots are slow/flaky; run on-demand instead of on every push.
+  push:
+    branches: [ "main" ]
+    paths:
+      - "app/src/main/res/**"
+      - "app/src/main/java/**"
+      - "app/src/debug/**"
+      - ".github/workflows/android-screenshots.yml"
+  schedule:
+    # Nightly safety net (UTC). Emulator screenshots are higher-fidelity than Paparazzi.
+    - cron: "0 4 * * *"
+
+concurrency:
+  group: android-screenshots-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   screenshots:
@@ -31,7 +44,7 @@ jobs:
           api-level: 34
           arch: x86_64
           profile: pixel_6
-          emulator-options: -no-window -no-audio -no-snapshot -gpu swiftshader_indirect
+          emulator-options: -no-window -no-audio -no-snapshot -no-boot-anim -gpu swiftshader_indirect
           disable-animations: true
           script: |
             set -eux
@@ -43,6 +56,10 @@ jobs:
             adb shell settings put global transition_animation_scale 0 || true
             adb shell settings put global window_animation_scale 0 || true
             adb shell settings put global animator_duration_scale 0 || true
+            # Match the app's intended default look.
+            adb shell cmd uimode night yes || true
+            adb shell settings put secure ui_night_mode 2 || true
+            sleep 1
 
             PKG=com.secondwaybrowser.app
 
