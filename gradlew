@@ -115,6 +115,21 @@ case "$( uname )" in                #(
 esac
 
 
+# Kotlin/Gradle tooling used by this repo is not compatible with very new JDKs
+# (e.g. JDK 25). On macOS, prefer Android Studio's bundled JDK when JAVA_HOME
+# is not set and the default `java` is too new.
+if [ "$darwin" = "true" ] && [ -z "$JAVA_HOME" ] && command -v java >/dev/null 2>&1 ; then
+    java_version_line=$( java -version 2>&1 | head -n 1 )
+    case "$java_version_line" in #(
+      *\"2[3-9]*\"*|*\"[3-9][0-9]*\"*)
+        if [ -x "/Applications/Android Studio.app/Contents/jbr/Contents/Home/bin/java" ] ; then
+            JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"
+            export JAVA_HOME
+        fi
+        ;;
+    esac
+fi
+
 
 # Determine the Java command to use to start the JVM.
 if [ -n "$JAVA_HOME" ] ; then
