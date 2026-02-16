@@ -20,3 +20,6 @@ app/google-services.json
 .cursor/
 .gradle-home/
 .gradle-user-home/
+
+# Generated screenshots / artifacts
+artifacts/

@@ -37,8 +37,20 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: paparazzi-snapshots
-          path: app/build/paparazzi/**
+          name: paparazzi-report
+          path: app/build/reports/paparazzi/**
+          if-no-files-found: warn
+
+      - name: Export Paparazzi screenshots with stable filenames
+        if: always()
+        run: python3 scripts/export_paparazzi.py
+
+      - name: Upload exported screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshots-paparazzi
+          path: artifacts/screenshots/paparazzi/**
           if-no-files-found: warn
 
       - name: Upload unit test reports (for debugging)
