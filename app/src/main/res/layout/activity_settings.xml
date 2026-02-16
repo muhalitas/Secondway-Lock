@@ -37,6 +37,42 @@
                 android:text="@string/settings_profile_subtitle" />
 
             <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                android:text="@string/settings_section_protection_health"
+                style="@style/SecondwaySectionTitle" />
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/SecondwayCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/protection_health_summary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/SecondwayBodyMuted"
+                        android:text="@string/settings_protection_health_summary_placeholder" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/plan_details_button"
+                        style="@style/SecondwayButtonSecondary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/settings_plan_details_button" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
                 android:id="@+id/section_account"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -249,7 +285,7 @@
         android:id="@+id/bottom_nav"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/sw_bg"
+        android:background="@drawable/bg_bottom_nav"
         app:itemIconTint="@color/bottom_nav_item_tint"
         app:itemTextColor="@color/bottom_nav_item_tint"
         app:labelVisibilityMode="labeled"

@@ -45,7 +45,8 @@
                     android:layout_marginEnd="8dp"
                     android:background="@android:color/transparent"
                     android:contentDescription="@string/help_title"
-                    android:src="@android:drawable/ic_menu_help" />
+                    android:src="@android:drawable/ic_menu_help"
+                    android:tint="@color/sw_icon" />
 
                 <ImageButton
                     android:id="@+id/settings_button"
@@ -53,7 +54,8 @@
                     android:layout_height="40dp"
                     android:background="@android:color/transparent"
                     android:contentDescription="@string/settings_title"
-                    android:src="@android:drawable/ic_menu_manage" />
+                    android:src="@android:drawable/ic_menu_manage"
+                    android:tint="@color/sw_icon" />
             </LinearLayout>
 
             <TextView
@@ -157,6 +159,34 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
+            <com.google.android.material.card.MaterialCardView
+                style="@style/SecondwayCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="14dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/SecondwaySectionTitle"
+                        android:text="@string/protection_health_title" />
+
+                    <TextView
+                        android:id="@+id/protection_health_summary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        style="@style/SecondwayBodyMuted"
+                        android:text="@string/protection_health_summary_placeholder" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -187,7 +217,7 @@
         android:id="@+id/bottom_nav"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/sw_bg"
+        android:background="@drawable/bg_bottom_nav"
         app:itemIconTint="@color/bottom_nav_item_tint"
         app:itemTextColor="@color/bottom_nav_item_tint"
         app:labelVisibilityMode="labeled"

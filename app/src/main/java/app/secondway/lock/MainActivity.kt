@@ -48,6 +48,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var lockDurationDeferRow: View
     private lateinit var lockDurationDeferText: TextView
     private lateinit var lockDurationDeferCancel: Button
+    private lateinit var protectionHealthSummary: TextView
 
     private lateinit var allAppsRecycler: RecyclerView
     private val allAppRows = mutableListOf<NewAppRow>()
@@ -122,6 +123,7 @@ class MainActivity : AppCompatActivity() {
         lockDurationDeferRow = findViewById(R.id.lock_duration_defer_row)
         lockDurationDeferText = findViewById(R.id.lock_duration_defer_text)
         lockDurationDeferCancel = findViewById(R.id.lock_duration_defer_cancel)
+        protectionHealthSummary = findViewById(R.id.protection_health_summary)
         lockDurationCard.setOnClickListener { showLockDurationPicker() }
         lockDurationDeferCancel.setOnClickListener {
             LockHelper.cancelDeferredLockDurationChange(this)
@@ -448,11 +450,21 @@ class MainActivity : AppCompatActivity() {
         val factoryResetOn = PolicyHelper.isFactoryResetRestriction(this)
         val pendingOff = MasterLockDuration.isCountdownActive(this)
         val active = factoryResetOn && !pendingOff
+        val accessibilityEnabled = GuardServiceHelper.isAccessibilityGuardEnabled(this)
+        val overlayEnabled = GuardServiceHelper.canDrawOverlays(this)
+        val waitlistDuration = formatLockDuration(MasterLockDuration.getDurationSeconds(this))
         masterSwitch.isEnabled = true
         masterSwitch.isChecked = if (pendingOff) false else factoryResetOn
         protectionPassiveLabel.setTypeface(null, if (active) android.graphics.Typeface.NORMAL else android.graphics.Typeface.BOLD)
         protectionActiveLabel.setTypeface(null, if (active) android.graphics.Typeface.BOLD else android.graphics.Typeface.NORMAL)
         applyMasterSwitchTint(pendingOff)
+        protectionHealthSummary.text = getString(
+            R.string.protection_health_summary_format,
+            if (active) getString(R.string.state_on) else getString(R.string.state_off),
+            if (accessibilityEnabled) getString(R.string.state_on) else getString(R.string.state_off),
+            if (overlayEnabled) getString(R.string.state_on) else getString(R.string.state_off),
+            waitlistDuration,
+        )
 
         if (pendingOff) {
             val sec = MasterLockDuration.getRemainingSeconds(this)

@@ -34,6 +34,8 @@ class SettingsActivity : AppCompatActivity() {
     private lateinit var languageChangeButton: View
     private lateinit var lockDurationValue: TextView
     private lateinit var lockDurationButton: View
+    private lateinit var protectionHealthSummary: TextView
+    private lateinit var planDetailsButton: View
     private lateinit var allowlistButton: View
     private lateinit var downloadsButton: View
     private lateinit var historyButton: View
@@ -58,6 +60,8 @@ class SettingsActivity : AppCompatActivity() {
         languageChangeButton = findViewById(R.id.language_change_button)
         lockDurationValue = findViewById(R.id.lock_duration_value)
         lockDurationButton = findViewById(R.id.lock_duration_button)
+        protectionHealthSummary = findViewById(R.id.protection_health_summary)
+        planDetailsButton = findViewById(R.id.plan_details_button)
         allowlistButton = findViewById(R.id.allowlist_button)
         downloadsButton = findViewById(R.id.downloads_button)
         historyButton = findViewById(R.id.history_button)
@@ -109,6 +113,7 @@ class SettingsActivity : AppCompatActivity() {
         accountAction.setOnClickListener { handleAccountAction() }
         languageChangeButton.setOnClickListener { showLanguagePicker() }
         lockDurationButton.setOnClickListener { showSetLockDurationDialog() }
+        planDetailsButton.setOnClickListener { showPlanDetailsDialog() }
         allowlistButton.setOnClickListener { showAllowlistDialog() }
         downloadsButton.setOnClickListener { showDownloadsDialog() }
         historyButton.setOnClickListener { showHistoryDialog() }
@@ -122,6 +127,7 @@ class SettingsActivity : AppCompatActivity() {
         updateAccountRow()
         updateLanguageRow()
         updateLockDurationRow()
+        updateProtectionHealthRow()
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -172,6 +178,47 @@ class SettingsActivity : AppCompatActivity() {
         } else {
             val remaining = (pending.second - System.currentTimeMillis()).coerceAtLeast(0)
             "$base\n${getString(R.string.lock_duration_reduction_pending, formatLockDurationForMessage(remaining))}"
+        }
+    }
+
+    private fun updateProtectionHealthRow() {
+        val browserShieldActive = isDefaultBrowser()
+        val accessibilityEnabled = app.secondway.lock.GuardServiceHelper.isAccessibilityGuardEnabled(this)
+        val overlayEnabled = app.secondway.lock.GuardServiceHelper.canDrawOverlays(this)
+        val readyCount = (if (accessibilityEnabled) 1 else 0) + (if (overlayEnabled) 1 else 0)
+        val waitlistDuration = formatLockDuration(AllowlistHelper.getLockDurationMs(this))
+        protectionHealthSummary.text = getString(
+            R.string.settings_protection_health_summary_format,
+            if (browserShieldActive) {
+                getString(R.string.settings_browser_shield_active)
+            } else {
+                getString(R.string.settings_browser_shield_passive)
+            },
+            readyCount,
+            waitlistDuration
+        )
+    }
+
+    private fun showPlanDetailsDialog() {
+        AlertDialog.Builder(this)
+            .setTitle(R.string.plan_dialog_title)
+            .setMessage(getString(R.string.plan_dialog_body))
+            .setPositiveButton(android.R.string.ok, null)
+            .show()
+    }
+
+    private fun isDefaultBrowser(): Boolean {
+        return try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                val roleManager = getSystemService(RoleManager::class.java)
+                roleManager?.isRoleHeld(RoleManager.ROLE_BROWSER) == true
+            } else {
+                val intent = Intent(Intent.ACTION_VIEW).apply { data = android.net.Uri.parse("https://www.google.com") }
+                val resolveInfo = packageManager.resolveActivity(intent, 0)
+                resolveInfo?.activityInfo?.packageName == packageName
+            }
+        } catch (_: Throwable) {
+            false
         }
     }
 

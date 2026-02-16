@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="6dp"
+    android:padding="8dp"
     android:background="@color/sw_bg">
 
     <FrameLayout
@@ -88,12 +88,49 @@
         android:progressBackgroundTint="@color/browser_progress_bg" />
 
     <LinearLayout
+        android:id="@+id/protection_health_strip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/bg_shell_container"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp">
+
+        <TextView
+            android:id="@+id/chip_guard_state"
+            style="@style/SecondwayStatusChip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="6dp"
+            android:text="@string/health_chip_guard_off" />
+
+        <TextView
+            android:id="@+id/chip_permission_state"
+            style="@style/SecondwayStatusChip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="6dp"
+            android:text="@string/health_chip_permissions_fix" />
+
+        <TextView
+            android:id="@+id/chip_waitlist_state"
+            style="@style/SecondwayStatusChip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/health_chip_waitlist_default" />
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/toolbar_url_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:background="@color/sw_surface"
+        android:background="@drawable/bg_shell_container"
         android:paddingStart="6dp"
         android:paddingEnd="6dp"
         android:paddingTop="6dp"
@@ -219,7 +256,8 @@
         android:id="@+id/bottom_nav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/sw_bg"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/bg_bottom_nav"
         app:itemIconTint="@color/bottom_nav_item_tint"
         app:itemTextColor="@color/bottom_nav_item_tint"
         app:labelVisibilityMode="labeled"

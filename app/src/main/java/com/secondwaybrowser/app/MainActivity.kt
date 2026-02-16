@@ -102,6 +102,9 @@ class MainActivity : AppCompatActivity(), TabFragment.Listener, TabSwitcherDialo
     private lateinit var browserEmptyState: View
     private lateinit var browserEmptyPrimary: View
     private lateinit var browserEmptySecondary: View
+    private lateinit var chipGuardState: TextView
+    private lateinit var chipPermissionState: TextView
+    private lateinit var chipWaitlistState: TextView
     private var urlBarSelectAllActive = false
     private val resolveClient by lazy {
         val cache = File(cacheDir, "resolve_cache")
@@ -212,6 +215,12 @@ class MainActivity : AppCompatActivity(), TabFragment.Listener, TabSwitcherDialo
             syncManager.start()
             bootstrapRemoteIfEmpty()
         }
+        updateProtectionHealthStrip()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        updateProtectionHealthStrip()
     }
 
     override fun onNewIntent(intent: Intent?) {
@@ -720,6 +729,9 @@ class MainActivity : AppCompatActivity(), TabFragment.Listener, TabSwitcherDialo
         browserEmptyState = findViewById(R.id.browser_empty_state)
         browserEmptyPrimary = findViewById(R.id.browser_empty_primary)
         browserEmptySecondary = findViewById(R.id.browser_empty_secondary)
+        chipGuardState = findViewById(R.id.chip_guard_state)
+        chipPermissionState = findViewById(R.id.chip_permission_state)
+        chipWaitlistState = findViewById(R.id.chip_waitlist_state)
         urlBar.isCursorVisible = true
 
         btnLock.setOnClickListener {
@@ -916,6 +928,8 @@ class MainActivity : AppCompatActivity(), TabFragment.Listener, TabSwitcherDialo
                 }
             }
         })
+
+        updateProtectionHealthStrip()
     }
 
     fun onContentTouched() {
@@ -1039,6 +1053,31 @@ class MainActivity : AppCompatActivity(), TabFragment.Listener, TabSwitcherDialo
         val currentUrl = tabs.getOrNull(viewPager.currentItem)?.url.orEmpty()
         val shouldShow = !urlBar.isFocused && (currentUrl.isBlank() || currentUrl == BLANK_START_PAGE)
         browserEmptyState.visibility = if (shouldShow) View.VISIBLE else View.GONE
+    }
+
+    private fun updateProtectionHealthStrip() {
+        val guardActive = app.secondway.lock.PolicyHelper.isFactoryResetRestriction(this)
+        val accessibilityEnabled = app.secondway.lock.GuardServiceHelper.isAccessibilityGuardEnabled(this)
+        val overlayEnabled = app.secondway.lock.GuardServiceHelper.canDrawOverlays(this)
+        val waitMinutes = (AllowlistHelper.getLockDurationMs(this) / 60_000L).coerceAtLeast(1L).toInt()
+
+        chipGuardState.text = getString(if (guardActive) R.string.health_chip_guard_on else R.string.health_chip_guard_off)
+        chipPermissionState.text = getString(
+            if (accessibilityEnabled && overlayEnabled) {
+                R.string.health_chip_permissions_ok
+            } else {
+                R.string.health_chip_permissions_fix
+            }
+        )
+        chipWaitlistState.text = getString(R.string.health_chip_waitlist, waitMinutes)
+
+        chipGuardState.setBackgroundResource(
+            if (guardActive) R.drawable.bg_status_chip_ok else R.drawable.bg_status_chip_warn
+        )
+        chipPermissionState.setBackgroundResource(
+            if (accessibilityEnabled && overlayEnabled) R.drawable.bg_status_chip_ok else R.drawable.bg_status_chip_warn
+        )
+        chipWaitlistState.setBackgroundResource(R.drawable.bg_status_chip)
     }
 
     /** Toolbar'daki URL dışı butonları göster/gizle (focus'ta tam satır URL alanı). */

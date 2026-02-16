@@ -16,6 +16,7 @@ This repo is optimized for a no-prompt, automated UI iteration loop.
 - Run a recurring market intelligence scan before major UX/growth changes:
   - Run: `./scripts/market_scan.sh`
   - Review: `artifacts/market/market_scan_latest.md`
+  - Review generated backlog: `artifacts/market/ui_ux_tasks_latest.md`
   - Treat source availability explicitly: SensorTower is primary if reachable, and
     AppMagic/data.ai must be reported as `reachable` or `blocked`.
 
@@ -40,5 +41,6 @@ This repo is optimized for a no-prompt, automated UI iteration loop.
 - Automated report:
   - Command: `./scripts/market_scan.sh`
   - Output: `artifacts/market/market_scan_latest.md`
+  - Output: `artifacts/market/ui_ux_tasks_latest.md`
 - CI automation:
   - GitHub Actions: `.github/workflows/market-intelligence.yml` (weekly + manual)

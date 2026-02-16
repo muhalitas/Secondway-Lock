@@ -45,3 +45,4 @@ Bu sürüm **soft mode** çalışır:
 - Market intelligence doğrulaması (SensorTower/AppMagic/data.ai erişimi + Play review sinyalleri):
   - `./scripts/market_scan.sh`
   - Çıktı: `artifacts/market/market_scan_latest.md`
+  - Otomatik görev listesi: `artifacts/market/ui_ux_tasks_latest.md`
