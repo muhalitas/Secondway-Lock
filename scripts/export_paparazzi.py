@@ -116,6 +116,11 @@ def main() -> int:
     index_md = out_dir / "INDEX.md"
     with index_md.open("w", encoding="utf-8") as f:
         f.write("# Paparazzi Screenshots\n\n")
+        f.write(
+            "Note: These are fast, emulator-free *layout* snapshots. They do not render real WebView "
+            "content and some screens are populated with placeholder data inside the test so the "
+            "result is representative.\n\n"
+        )
         f.write(f"Source report: `{report_dir}`\n\n")
         for name, dst in exported:
             f.write(f"- `{name}` -> `{dst.name}`\n")
@@ -126,4 +131,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

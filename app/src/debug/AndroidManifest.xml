@@ -21,5 +21,16 @@
             android:name=".GuardInterventionActivity"
             android:exported="true"
             tools:replace="android:exported" />
+
+        <!-- Lock screens (module namespace is app.secondway.lock.*) -->
+        <activity
+            android:name="app.secondway.lock.MainActivity"
+            android:exported="true"
+            tools:replace="android:exported" />
+
+        <activity
+            android:name="app.secondway.lock.SettingsActivity"
+            android:exported="true"
+            tools:replace="android:exported" />
     </application>
 </manifest>

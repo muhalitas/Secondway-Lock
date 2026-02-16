@@ -71,6 +71,16 @@ jobs:
             sleep 1
             adb exec-out screencap -p > screenshots/05_guard_intervention.png
 
+            # Lock main
+            adb shell am start -n "$PKG/app.secondway.lock.MainActivity"
+            sleep 2
+            adb exec-out screencap -p > screenshots/06_lock_main.png
+
+            # Lock settings
+            adb shell am start -n "$PKG/app.secondway.lock.SettingsActivity"
+            sleep 2
+            adb exec-out screencap -p > screenshots/07_lock_settings.png
+
       - name: Upload screenshots
         uses: actions/upload-artifact@v4
         with:
