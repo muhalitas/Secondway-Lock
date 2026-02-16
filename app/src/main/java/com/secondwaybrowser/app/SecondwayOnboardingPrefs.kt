@@ -8,6 +8,11 @@ object SecondwayOnboardingPrefs {
     private const val KEY_COMPLETED = "completed"
     private const val KEY_DAILY_HOURS = "daily_hours"
     private const val KEY_PRIMARY_TRIGGER = "primary_trigger"
+    private const val KEY_RECOVERY_PROFILE = "recovery_profile"
+
+    const val PROFILE_STRICT = "strict"
+    const val PROFILE_BALANCED = "balanced"
+    const val PROFILE_FOCUS = "focus"
 
     private fun prefs(context: Context) =
         context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
@@ -32,5 +37,15 @@ object SecondwayOnboardingPrefs {
 
     fun getPrimaryTrigger(context: Context): String =
         prefs(context).getString(KEY_PRIMARY_TRIGGER, "").orEmpty()
-}
 
+    fun setRecoveryProfile(context: Context, profile: String) {
+        val normalized = when (profile) {
+            PROFILE_STRICT, PROFILE_BALANCED, PROFILE_FOCUS -> profile
+            else -> PROFILE_BALANCED
+        }
+        prefs(context).edit().putString(KEY_RECOVERY_PROFILE, normalized).apply()
+    }
+
+    fun getRecoveryProfile(context: Context): String =
+        prefs(context).getString(KEY_RECOVERY_PROFILE, PROFILE_BALANCED) ?: PROFILE_BALANCED
+}

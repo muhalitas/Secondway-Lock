@@ -248,6 +248,13 @@
     <string name="onboarding_setup_title">Let\'s get you set up.\nWe\'ll tailor Secondway to your needs.</string>
     <string name="onboarding_setup_body">We\'ll ask a few quick questions.\nYour answers are only used to personalize the experience.</string>
     <string name="onboarding_setup_privacy">Privacy policy</string>
+    <string name="onboarding_profile_title">Pick your recovery profile</string>
+    <string name="onboarding_profile_strict">Strict recovery: strongest friction</string>
+    <string name="onboarding_profile_balanced">Balanced recovery: daily consistency</string>
+    <string name="onboarding_profile_focus">Focus recovery: minimal friction</string>
+    <string name="onboarding_profile_selected_strict">Selected: Strict recovery</string>
+    <string name="onboarding_profile_selected_balanced">Selected: Balanced recovery</string>
+    <string name="onboarding_profile_selected_focus">Selected: Focus recovery</string>
 
     <string name="onboarding_time_question">How much time goes to porn or\ndigital gambling each day?</string>
     <string name="onboarding_time_min">0</string>

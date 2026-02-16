@@ -88,43 +88,6 @@
         android:progressBackgroundTint="@color/browser_progress_bg" />
 
     <LinearLayout
-        android:id="@+id/protection_health_strip"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:background="@drawable/bg_shell_container"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp">
-
-        <TextView
-            android:id="@+id/chip_guard_state"
-            style="@style/SecondwayStatusChip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="6dp"
-            android:text="@string/health_chip_guard_off" />
-
-        <TextView
-            android:id="@+id/chip_permission_state"
-            style="@style/SecondwayStatusChip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="6dp"
-            android:text="@string/health_chip_permissions_fix" />
-
-        <TextView
-            android:id="@+id/chip_waitlist_state"
-            style="@style/SecondwayStatusChip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/health_chip_waitlist_default" />
-    </LinearLayout>
-
-    <LinearLayout
         android:id="@+id/toolbar_url_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -190,6 +153,7 @@
             android:id="@+id/btn_add_tab"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:visibility="gone"
             android:src="@drawable/ic_add_tab"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/btn_add_tab"

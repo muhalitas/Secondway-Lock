@@ -102,9 +102,6 @@ class MainActivity : AppCompatActivity(), TabFragment.Listener, TabSwitcherDialo
     private lateinit var browserEmptyState: View
     private lateinit var browserEmptyPrimary: View
     private lateinit var browserEmptySecondary: View
-    private lateinit var chipGuardState: TextView
-    private lateinit var chipPermissionState: TextView
-    private lateinit var chipWaitlistState: TextView
     private var urlBarSelectAllActive = false
     private val resolveClient by lazy {
         val cache = File(cacheDir, "resolve_cache")
@@ -215,12 +212,6 @@ class MainActivity : AppCompatActivity(), TabFragment.Listener, TabSwitcherDialo
             syncManager.start()
             bootstrapRemoteIfEmpty()
         }
-        updateProtectionHealthStrip()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        updateProtectionHealthStrip()
     }
 
     override fun onNewIntent(intent: Intent?) {
@@ -729,9 +720,6 @@ class MainActivity : AppCompatActivity(), TabFragment.Listener, TabSwitcherDialo
         browserEmptyState = findViewById(R.id.browser_empty_state)
         browserEmptyPrimary = findViewById(R.id.browser_empty_primary)
         browserEmptySecondary = findViewById(R.id.browser_empty_secondary)
-        chipGuardState = findViewById(R.id.chip_guard_state)
-        chipPermissionState = findViewById(R.id.chip_permission_state)
-        chipWaitlistState = findViewById(R.id.chip_waitlist_state)
         urlBar.isCursorVisible = true
 
         btnLock.setOnClickListener {
@@ -908,10 +896,18 @@ class MainActivity : AppCompatActivity(), TabFragment.Listener, TabSwitcherDialo
             PopupMenu(this, v).apply {
                 menu.add(0, 0, 0, getString(R.string.settings_menu))
                 menu.add(0, 1, 1, getString(R.string.refresh))
+                menu.add(0, 2, 2, getString(R.string.btn_add_tab))
                 setOnMenuItemClickListener { item ->
                     when (item.itemId) {
                         0 -> startActivity(Intent(this@MainActivity, SettingsActivity::class.java))
                         1 -> currentWebView?.reload()
+                        2 -> {
+                            val newTab = TabItem(UUID.randomUUID().toString(), BLANK_START_PAGE, getString(R.string.new_tab_title))
+                            tabs.add(newTab)
+                            tabsAdapter.notifyItemInserted(tabs.size - 1)
+                            viewPager.setCurrentItem(tabs.size - 1, true)
+                            updateTabCountBadge()
+                        }
                     }
                     true
                 }
@@ -928,8 +924,6 @@ class MainActivity : AppCompatActivity(), TabFragment.Listener, TabSwitcherDialo
                 }
             }
         })
-
-        updateProtectionHealthStrip()
     }
 
     fun onContentTouched() {
@@ -1028,6 +1022,7 @@ class MainActivity : AppCompatActivity(), TabFragment.Listener, TabSwitcherDialo
     private fun updateTabCountBadge() {
         val count = tabs.size
         tabCountBadge.text = if (count > 99) "99+" else count.toString()
+        tabCountBadge.visibility = if (count <= 1) View.GONE else View.VISIBLE
     }
 
     private fun getCurrentTabUrl(): String = tabs.getOrNull(viewPager.currentItem)?.url ?: ""
@@ -1053,31 +1048,6 @@ class MainActivity : AppCompatActivity(), TabFragment.Listener, TabSwitcherDialo
         val currentUrl = tabs.getOrNull(viewPager.currentItem)?.url.orEmpty()
         val shouldShow = !urlBar.isFocused && (currentUrl.isBlank() || currentUrl == BLANK_START_PAGE)
         browserEmptyState.visibility = if (shouldShow) View.VISIBLE else View.GONE
-    }
-
-    private fun updateProtectionHealthStrip() {
-        val guardActive = app.secondway.lock.PolicyHelper.isFactoryResetRestriction(this)
-        val accessibilityEnabled = app.secondway.lock.GuardServiceHelper.isAccessibilityGuardEnabled(this)
-        val overlayEnabled = app.secondway.lock.GuardServiceHelper.canDrawOverlays(this)
-        val waitMinutes = (AllowlistHelper.getLockDurationMs(this) / 60_000L).coerceAtLeast(1L).toInt()
-
-        chipGuardState.text = getString(if (guardActive) R.string.health_chip_guard_on else R.string.health_chip_guard_off)
-        chipPermissionState.text = getString(
-            if (accessibilityEnabled && overlayEnabled) {
-                R.string.health_chip_permissions_ok
-            } else {
-                R.string.health_chip_permissions_fix
-            }
-        )
-        chipWaitlistState.text = getString(R.string.health_chip_waitlist, waitMinutes)
-
-        chipGuardState.setBackgroundResource(
-            if (guardActive) R.drawable.bg_status_chip_ok else R.drawable.bg_status_chip_warn
-        )
-        chipPermissionState.setBackgroundResource(
-            if (accessibilityEnabled && overlayEnabled) R.drawable.bg_status_chip_ok else R.drawable.bg_status_chip_warn
-        )
-        chipWaitlistState.setBackgroundResource(R.drawable.bg_status_chip)
     }
 
     /** Toolbar'daki URL dışı butonları göster/gizle (focus'ta tam satır URL alanı). */

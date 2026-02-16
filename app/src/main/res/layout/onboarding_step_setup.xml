@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
+    android:gravity="center_horizontal"
     android:orientation="vertical"
     android:paddingTop="14dp"
     android:paddingBottom="14dp">
@@ -38,5 +38,42 @@
         android:text="@string/onboarding_setup_privacy"
         android:textColor="#E2E8F0"
         android:textSize="13sp" />
-</LinearLayout>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:gravity="center"
+        android:text="@string/onboarding_profile_title"
+        android:textColor="#D6E6FF"
+        android:textSize="13sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/profile_strict"
+        style="@style/OnboardingChoiceRow"
+        android:layout_marginTop="10dp"
+        android:text="@string/onboarding_profile_strict" />
+
+    <TextView
+        android:id="@+id/profile_balanced"
+        style="@style/OnboardingChoiceRow"
+        android:layout_marginTop="8dp"
+        android:text="@string/onboarding_profile_balanced" />
+
+    <TextView
+        android:id="@+id/profile_focus"
+        style="@style/OnboardingChoiceRow"
+        android:layout_marginTop="8dp"
+        android:text="@string/onboarding_profile_focus" />
+
+    <TextView
+        android:id="@+id/profile_selected"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="@string/onboarding_profile_selected_balanced"
+        android:textColor="#94A3B8"
+        android:textSize="12sp" />
+</LinearLayout>

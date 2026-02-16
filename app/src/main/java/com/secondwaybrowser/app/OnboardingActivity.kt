@@ -2,6 +2,7 @@ package com.secondwaybrowser.app
 
 import app.secondway.lock.BatteryOptimizationHelper
 import app.secondway.lock.GuardServiceHelper
+import app.secondway.lock.MasterLockDuration
 import app.secondway.lock.R
 import android.content.Intent
 import android.os.Bundle
@@ -53,6 +54,11 @@ class OnboardingActivity : AppCompatActivity() {
 
     private fun onPrimary() {
         when (step) {
+            STEP_SETUP -> {
+                val selected = content.findViewById<TextView>(R.id.profile_selected).tag as? String
+                    ?: SecondwayOnboardingPrefs.PROFILE_BALANCED
+                SecondwayOnboardingPrefs.setRecoveryProfile(this, selected)
+            }
             STEP_TIME -> {
                 val slider = content.findViewById<Slider>(R.id.daily_hours_slider)
                 SecondwayOnboardingPrefs.setDailyHours(this, slider.value)
@@ -105,11 +111,38 @@ class OnboardingActivity : AppCompatActivity() {
         }
 
         when (step) {
+            STEP_SETUP -> bindSetupStep()
             STEP_TIME -> bindTimeStep()
             STEP_STATS -> bindStatsStep()
             STEP_TRIGGER -> bindTriggerStep()
             STEP_PERMISSIONS -> bindPermissionsStep()
         }
+    }
+
+    private fun bindSetupStep() {
+        val strict = content.findViewById<TextView>(R.id.profile_strict)
+        val balanced = content.findViewById<TextView>(R.id.profile_balanced)
+        val focus = content.findViewById<TextView>(R.id.profile_focus)
+        val selectedLabel = content.findViewById<TextView>(R.id.profile_selected)
+
+        fun applySelection(profile: String) {
+            selectedLabel.tag = profile
+            selectedLabel.text = when (profile) {
+                SecondwayOnboardingPrefs.PROFILE_STRICT -> getString(R.string.onboarding_profile_selected_strict)
+                SecondwayOnboardingPrefs.PROFILE_FOCUS -> getString(R.string.onboarding_profile_selected_focus)
+                else -> getString(R.string.onboarding_profile_selected_balanced)
+            }
+            strict.alpha = if (profile == SecondwayOnboardingPrefs.PROFILE_STRICT) 1f else 0.72f
+            balanced.alpha = if (profile == SecondwayOnboardingPrefs.PROFILE_BALANCED) 1f else 0.72f
+            focus.alpha = if (profile == SecondwayOnboardingPrefs.PROFILE_FOCUS) 1f else 0.72f
+        }
+
+        val existing = SecondwayOnboardingPrefs.getRecoveryProfile(this)
+        applySelection(existing)
+
+        strict.setOnClickListener { applySelection(SecondwayOnboardingPrefs.PROFILE_STRICT) }
+        balanced.setOnClickListener { applySelection(SecondwayOnboardingPrefs.PROFILE_BALANCED) }
+        focus.setOnClickListener { applySelection(SecondwayOnboardingPrefs.PROFILE_FOCUS) }
     }
 
     private fun bindTimeStep() {
@@ -207,9 +240,7 @@ class OnboardingActivity : AppCompatActivity() {
         OnboardingHelper.setWelcomeShown(this)
         OnboardingHelper.clearOnboardingStep(this)
 
-        if (!skip) {
-            // Leave user defaults as-is; onboarding just seeds soft-plan values.
-        }
+        if (!skip) applyPersonaDefaults()
 
         startActivity(
             Intent(this, MainActivity::class.java)
@@ -217,6 +248,23 @@ class OnboardingActivity : AppCompatActivity() {
         )
         overridePendingTransition(0, 0)
         finish()
+    }
+
+    private fun applyPersonaDefaults() {
+        val profile = SecondwayOnboardingPrefs.getRecoveryProfile(this)
+        val waitMs = when (profile) {
+            SecondwayOnboardingPrefs.PROFILE_STRICT -> 60 * 60 * 1000L
+            SecondwayOnboardingPrefs.PROFILE_FOCUS -> 15 * 60 * 1000L
+            else -> 30 * 60 * 1000L
+        }
+        val lockSec = when (profile) {
+            SecondwayOnboardingPrefs.PROFILE_STRICT -> 60 * 60
+            SecondwayOnboardingPrefs.PROFILE_FOCUS -> 15 * 60
+            else -> 30 * 60
+        }
+        AllowlistHelper.setLockDurationMs(this, waitMs)
+        AllowlistHelper.setLockDurationSet(this)
+        MasterLockDuration.applyDurationChange(this, lockSec)
     }
 
     private fun formatHours(hours: Float): String {
@@ -251,4 +299,3 @@ class OnboardingActivity : AppCompatActivity() {
         private const val EXTRA_STEP = "extra_step"
     }
 }
-
