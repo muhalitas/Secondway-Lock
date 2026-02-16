@@ -6,6 +6,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("app.cash.paparazzi")
+    id("com.github.triplet.play")
 
     // Firebase/Google Sign-In: only apply google-services plugin when a google-services.json is present.
     // This keeps CI + public repo builds working without committing secrets.
@@ -17,6 +18,15 @@ if (file("google-services.json").exists() ||
     file("src/debug/google-services.json").exists() ||
     file("src/release/google-services.json").exists()) {
     apply(plugin = "com.google.gms.google-services")
+}
+
+fun propOrEnv(name: String): String? =
+    (providers.gradleProperty(name).orNull ?: System.getenv(name))?.takeIf { it.isNotBlank() }
+
+fun existingFilePropOrEnv(name: String): File? {
+    val p = propOrEnv(name) ?: return null
+    val f = file(p)
+    return if (f.exists()) f else null
 }
 
 android {
@@ -34,6 +44,26 @@ android {
         resValue("string", "build_time_display", "Build: $buildTime")
         resValue("string", "build_time_value", buildTime)
     }
+
+    val releaseKeystoreFile = existingFilePropOrEnv("SIGNING_STORE_FILE")
+    val releaseStorePassword = propOrEnv("SIGNING_STORE_PASSWORD")
+    val releaseKeyAlias = propOrEnv("SIGNING_KEY_ALIAS")
+    val releaseKeyPassword = propOrEnv("SIGNING_KEY_PASSWORD")
+    val hasReleaseSigning =
+        releaseKeystoreFile != null && releaseStorePassword != null && releaseKeyAlias != null && releaseKeyPassword != null
+
+    signingConfigs {
+        create("release") {
+            // If signing is not configured (e.g. local dev), keep release builds unsigned.
+            if (hasReleaseSigning) {
+                storeFile = releaseKeystoreFile
+                this.storePassword = releaseStorePassword
+                this.keyAlias = releaseKeyAlias
+                this.keyPassword = releaseKeyPassword
+            }
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -41,6 +71,10 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+
+            if (hasReleaseSigning) {
+                signingConfig = signingConfigs.getByName("release")
+            }
         }
     }
     compileOptions {
@@ -49,6 +83,13 @@ android {
     }
     kotlinOptions { jvmTarget = "17" }
     buildFeatures { buildConfig = true }
+}
+
+play {
+    // CI should write a JSON file and pass its path via PLAY_SERVICE_ACCOUNT_JSON_FILE.
+    existingFilePropOrEnv("PLAY_SERVICE_ACCOUNT_JSON_FILE")?.let { serviceAccountCredentials.set(it) }
+    track.set(propOrEnv("PLAY_TRACK") ?: "internal")
+    defaultToAppBundles.set(true)
 }
 
 dependencies {
