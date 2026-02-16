@@ -267,28 +267,26 @@ class MainActivity : AppCompatActivity() {
         executor.execute {
             val pm = activity.packageManager
             val tracked = NewAppLockStore.getTrackedPackages(activity)
-            val launcherPkgs = getLauncherPackages(pm)
-            @Suppress("DEPRECATION")
-            val apps = try { pm.getInstalledApplications(PackageManager.GET_META_DATA) } catch (_: Exception) { emptyList() }
             val rows = mutableListOf<NewAppRow>()
-            for (ai in apps) {
-                if (ai.packageName == activity.packageName) continue
-                // Some OEMs/launchers don't show all launchable apps in the generic LAUNCHER query.
-                // Fallback: include apps that have a launch intent.
-                val hasLauncherEntry = launcherPkgs.contains(ai.packageName)
-                val hasLaunchIntent = try { pm.getLaunchIntentForPackage(ai.packageName) != null } catch (_: Throwable) { false }
-                if (!hasLauncherEntry && !hasLaunchIntent) continue
+            val launcherPkgs = getLauncherPackages(pm)
+            for (pkg in launcherPkgs) {
+                if (pkg == activity.packageName) continue
+                val ai = try {
+                    pm.getApplicationInfo(pkg, 0)
+                } catch (_: Throwable) {
+                    continue
+                }
                 if (!isUserFacingApp(ai)) continue
-                val label = try { ai.loadLabel(pm).toString() } catch (_: Exception) { ai.packageName }
+                val label = try { ai.loadLabel(pm).toString() } catch (_: Exception) { pkg }
                 val icon = try { ai.loadIcon(pm) } catch (_: Exception) { null }
-                val desiredAllowed = if (tracked.contains(ai.packageName)) {
-                    NewAppLockStore.isAllowed(activity, ai.packageName)
+                val desiredAllowed = if (tracked.contains(pkg)) {
+                    NewAppLockStore.isAllowed(activity, pkg)
                 } else {
                     true
                 }
-                val isBlocked = PolicyHelper.isAppBlocked(activity, ai.packageName)
-                val pending = NewAppLockStore.getPendingUnlockEndMillis(activity, ai.packageName)
-                rows.add(NewAppRow(ai.packageName, label, icon, desiredAllowed, isBlocked, pending))
+                val isBlocked = PolicyHelper.isAppBlocked(activity, pkg)
+                val pending = NewAppLockStore.getPendingUnlockEndMillis(activity, pkg)
+                rows.add(NewAppRow(pkg, label, icon, desiredAllowed, isBlocked, pending))
             }
             rows.sortBy { it.label.lowercase() }
             mainHandler.post {

@@ -2,7 +2,10 @@ package app.secondway.lock
 
 import android.content.Context
 import android.content.pm.ApplicationInfo
+import android.content.Intent
 import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
+import android.content.pm.ResolveInfo
 
 object NewAppReconciler {
 
@@ -11,13 +14,18 @@ object NewAppReconciler {
 
         val pm = context.packageManager
         val baseline = NewAppLockStore.getOrInitBaselineTimeMillis(context)
-        @Suppress("DEPRECATION")
-        val packages: List<PackageInfo> = try { pm.getInstalledPackages(0) } catch (_: Throwable) { emptyList() }
+        val launcherPkgs = getLauncherPackages(pm)
 
         var newlyLocked = 0
-        for (pi in packages) {
-            val pkg = pi.packageName ?: continue
+        for (pkg in launcherPkgs) {
             if (pkg == context.packageName) continue
+
+            val pi: PackageInfo = try {
+                @Suppress("DEPRECATION")
+                pm.getPackageInfo(pkg, 0)
+            } catch (_: Throwable) {
+                continue
+            }
             if (pi.firstInstallTime <= baseline) continue
             val info = try {
                 pm.getApplicationInfo(pkg, 0)
@@ -34,5 +42,17 @@ object NewAppReconciler {
             newlyLocked++
         }
         return newlyLocked
+    }
+
+    private fun getLauncherPackages(pm: PackageManager): Set<String> {
+        val intent = Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LAUNCHER)
+        @Suppress("DEPRECATION")
+        val flags = PackageManager.MATCH_DISABLED_COMPONENTS
+        val resolveInfo = try {
+            pm.queryIntentActivities(intent, flags)
+        } catch (_: Exception) {
+            emptyList<ResolveInfo>()
+        }
+        return resolveInfo.mapNotNull { it.activityInfo?.packageName }.toSet()
     }
 }
