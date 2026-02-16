@@ -1,6 +1,6 @@
 package com.secondwaybrowser.app
 
-import android.view.LayoutInflater
+import android.view.View
 import app.cash.paparazzi.DeviceConfig
 import app.cash.paparazzi.Paparazzi
 import app.secondway.lock.R
@@ -16,42 +16,40 @@ class PaparazziScreenshotsTest {
     @get:Rule
     val paparazzi = Paparazzi(
         deviceConfig = DeviceConfig.PIXEL_6,
-        theme = "@style/Theme.SafeBrowser"
+        // Paparazzi expects a theme name (not an @style/... reference).
+        theme = "Theme.SafeBrowser",
+        // Required for Material/AppCompat widgets (BottomNavigationView, MaterialButton, etc.).
+        appCompatEnabled = true
     )
 
     @Test
     fun splash() {
-        paparazzi.snapshot(name = "01_splash") {
-            LayoutInflater.from(paparazzi.context).inflate(R.layout.activity_splash, null, false)
-        }
+        val view: View = paparazzi.inflate(R.layout.activity_splash)
+        paparazzi.snapshot(view, "01_splash")
     }
 
     @Test
     fun onboarding_shell() {
-        paparazzi.snapshot(name = "02_onboarding_shell") {
-            LayoutInflater.from(paparazzi.context).inflate(R.layout.activity_onboarding, null, false)
-        }
+        val view: View = paparazzi.inflate(R.layout.activity_onboarding)
+        paparazzi.snapshot(view, "02_onboarding_shell")
     }
 
     @Test
     fun settings() {
-        paparazzi.snapshot(name = "03_settings") {
-            LayoutInflater.from(paparazzi.context).inflate(R.layout.activity_settings, null, false)
-        }
+        val view: View = paparazzi.inflate(R.layout.activity_settings)
+        paparazzi.snapshot(view, "03_settings")
     }
 
     @Test
     fun guard_intervention() {
-        paparazzi.snapshot(name = "04_guard_intervention") {
-            LayoutInflater.from(paparazzi.context).inflate(R.layout.activity_guard_intervention, null, false)
-        }
+        val view: View = paparazzi.inflate(R.layout.activity_guard_intervention)
+        paparazzi.snapshot(view, "04_guard_intervention")
     }
 
     /** Browser main is WebView-heavy; we still snapshot the chrome (toolbar + bottom nav) shell. */
     @Test
     fun browser_main_shell() {
-        paparazzi.snapshot(name = "05_browser_main_shell") {
-            LayoutInflater.from(paparazzi.context).inflate(R.layout.activity_main, null, false)
-        }
+        val view: View = paparazzi.inflate(R.layout.activity_main)
+        paparazzi.snapshot(view, "05_browser_main_shell")
     }
 }
