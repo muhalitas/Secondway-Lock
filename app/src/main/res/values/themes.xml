@@ -14,6 +14,14 @@
     <style name="Theme.SafeBrowser" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/primary</item>
         <item name="colorOnPrimary">@color/on_primary</item>
+        <item name="colorSurface">@color/sw_surface</item>
+        <item name="colorOnSurface">@color/sw_text</item>
+        <item name="android:colorBackground">@color/sw_bg</item>
+        <item name="android:textColorPrimary">@color/sw_text</item>
+        <item name="android:textColorSecondary">@color/sw_text_muted</item>
+        <item name="android:windowBackground">@color/sw_bg</item>
+        <item name="android:statusBarColor">@color/sw_bg</item>
+        <item name="android:navigationBarColor">@color/sw_bg</item>
         <item name="android:windowAnimationStyle">@style/WindowAnimationNone</item>
     </style>
 
@@ -27,6 +35,14 @@
     <style name="Theme.SecondwayLock" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/primary</item>
         <item name="colorOnPrimary">@color/on_primary</item>
+        <item name="colorSurface">@color/sw_surface</item>
+        <item name="colorOnSurface">@color/sw_text</item>
+        <item name="android:colorBackground">@color/sw_bg</item>
+        <item name="android:textColorPrimary">@color/sw_text</item>
+        <item name="android:textColorSecondary">@color/sw_text_muted</item>
+        <item name="android:windowBackground">@color/sw_bg</item>
+        <item name="android:statusBarColor">@color/sw_bg</item>
+        <item name="android:navigationBarColor">@color/sw_bg</item>
         <item name="android:windowAnimationStyle">@style/WindowAnimationNone</item>
     </style>
 

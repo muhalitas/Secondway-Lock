@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="6dp">
+    android:padding="6dp"
+    android:background="@color/sw_bg">
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager"
@@ -20,8 +21,8 @@
         android:max="100"
         android:progress="0"
         android:visibility="gone"
-        android:progressTint="#1A73E8"
-        android:progressBackgroundTint="#DADCE0" />
+        android:progressTint="@color/browser_progress_fg"
+        android:progressBackgroundTint="@color/browser_progress_bg" />
 
     <LinearLayout
         android:id="@+id/toolbar_url_container"
@@ -29,7 +30,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:background="#F1F3F4"
+        android:background="@color/sw_surface"
         android:paddingStart="6dp"
         android:paddingEnd="6dp"
         android:paddingTop="6dp"
@@ -45,7 +46,7 @@
             android:contentDescription="@string/btn_home"
             android:scaleType="centerInside"
             android:padding="8dp"
-            android:tint="#5F6368" />
+            android:tint="@color/browser_icon_tint" />
 
         <FrameLayout
             android:layout_width="0dp"
@@ -68,8 +69,8 @@
                 android:background="@drawable/bg_url_bar"
                 android:hint="@string/url_bar_hint"
                 android:textSize="14sp"
-                android:textColor="#202124"
-                android:textColorHint="#5F6368" />
+                android:textColor="@color/browser_url_text"
+                android:textColorHint="@color/browser_url_hint" />
 
             <ImageButton
                 android:id="@+id/btn_lock"
@@ -82,7 +83,7 @@
                 android:contentDescription="@string/open_lock_screen"
                 android:scaleType="centerInside"
                 android:padding="10dp"
-                android:tint="#5F6368" />
+                android:tint="@color/browser_icon_tint" />
         </FrameLayout>
 
         <ImageButton
@@ -94,7 +95,7 @@
             android:contentDescription="@string/btn_add_tab"
             android:scaleType="centerInside"
             android:padding="8dp"
-            android:tint="#5F6368" />
+            android:tint="@color/browser_icon_tint" />
 
         <ImageButton
             android:id="@+id/btn_allowlist"
@@ -105,7 +106,7 @@
             android:contentDescription="@string/allowlist_add_site"
             android:scaleType="centerInside"
             android:padding="8dp"
-            android:tint="#5F6368" />
+            android:tint="@color/browser_icon_tint" />
 
         <FrameLayout
             android:id="@+id/toolbar_tabs_frame"
@@ -121,7 +122,7 @@
                 android:contentDescription="@string/btn_tabs"
                 android:scaleType="centerInside"
                 android:padding="8dp"
-                android:tint="#5F6368" />
+                android:tint="@color/browser_icon_tint" />
 
             <TextView
                 android:id="@+id/tab_count_badge"
@@ -134,7 +135,7 @@
                 android:minHeight="24dp"
                 android:paddingStart="6dp"
                 android:paddingEnd="6dp"
-                android:textColor="#5F6368"
+                android:textColor="@color/sw_text"
                 android:textSize="12sp"
                 android:visibility="visible" />
         </FrameLayout>
@@ -148,14 +149,14 @@
             android:contentDescription="@string/settings_menu"
             android:scaleType="centerInside"
             android:padding="8dp"
-            android:tint="#5F6368" />
+            android:tint="@color/browser_icon_tint" />
     </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#0B0F17"
+        android:background="@color/sw_bg"
         app:itemIconTint="@color/bottom_nav_item_tint"
         app:itemTextColor="@color/bottom_nav_item_tint"
         app:labelVisibilityMode="labeled"

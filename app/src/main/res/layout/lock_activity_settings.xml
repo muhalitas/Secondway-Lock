@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/sw_bg">
 
     <ScrollView
         android:id="@+id/lock_settings_scroll"
@@ -36,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
                 android:text="@string/build_time_display"
-                android:textColor="#757575"
+                android:textColor="@color/sw_text_muted"
                 android:textSize="12sp" />
 
             <TextView
@@ -62,10 +63,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
                 android:visibility="gone"
-                app:cardBackgroundColor="#FFF3E0"
+                app:cardBackgroundColor="@color/notice_warn_bg"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="2dp"
-                app:strokeColor="#E65100"
+                app:strokeColor="@color/notice_warn_fg"
                 app:strokeWidth="1dp">
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -76,7 +77,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/full_protection_notice_title"
-                        android:textColor="#E65100"
+                        android:textColor="@color/notice_warn_fg"
                         android:textSize="14sp"
                         android:textStyle="bold" />
                     <TextView
@@ -86,7 +87,7 @@
                         android:layout_marginTop="4dp"
                         android:lineSpacingExtra="2dp"
                         android:text="@string/full_protection_notice"
-                        android:textColor="#BF360C"
+                        android:textColor="@color/sw_text"
                         android:textSize="13sp" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -114,7 +115,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:textColor="#757575"
+                        android:textColor="@color/sw_text_muted"
                         android:textSize="13sp" />
                     <Button
                         android:id="@+id/default_browser_action"
@@ -149,7 +150,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:textColor="#757575"
+                        android:textColor="@color/sw_text_muted"
                         android:textSize="13sp" />
                     <Button
                         android:id="@+id/language_change_button"
@@ -176,10 +177,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
                 android:visibility="gone"
-                app:cardBackgroundColor="#E8F5E9"
+                app:cardBackgroundColor="@color/notice_ok_bg"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="2dp"
-                app:strokeColor="#1B5E20"
+                app:strokeColor="@color/notice_ok_fg"
                 app:strokeWidth="1dp">
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -190,7 +191,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/battery_opt_title"
-                        android:textColor="#1B5E20"
+                        android:textColor="@color/notice_ok_fg"
                         android:textSize="14sp"
                         android:textStyle="bold" />
                     <TextView
@@ -199,7 +200,7 @@
                         android:layout_marginTop="4dp"
                         android:lineSpacingExtra="2dp"
                         android:text="@string/battery_opt_body"
-                        android:textColor="#2E7D32"
+                        android:textColor="@color/sw_text"
                         android:textSize="13sp" />
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -282,7 +283,7 @@
         android:id="@+id/bottom_nav"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="#0B0F17"
+        android:background="@color/sw_bg"
         app:itemIconTint="@color/bottom_nav_item_tint"
         app:itemTextColor="@color/bottom_nav_item_tint"
         app:labelVisibilityMode="labeled"
@@ -292,4 +293,3 @@
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-

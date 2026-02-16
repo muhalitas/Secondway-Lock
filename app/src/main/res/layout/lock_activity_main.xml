@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/sw_bg">
 
     <ScrollView
         android:id="@+id/lock_scroll"
@@ -60,7 +61,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
-                android:textColor="#E65100"
+                android:textColor="@color/notice_warn_fg"
                 android:textSize="13sp"
                 android:visibility="gone" />
 
@@ -139,13 +140,13 @@
                         android:orientation="horizontal"
                         android:visibility="gone">
 
-                        <TextView
-                            android:id="@+id/lock_duration_defer_text"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:textSize="12sp"
-                            android:textColor="#757575" />
+                    <TextView
+                        android:id="@+id/lock_duration_defer_text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="12sp"
+                        android:textColor="@color/sw_text_muted" />
 
                         <Button
                             android:id="@+id/lock_duration_defer_cancel"
@@ -171,7 +172,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:text="@string/all_apps_subtitle"
-                android:textColor="#757575"
+                android:textColor="@color/sw_text_muted"
                 android:textSize="13sp" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -187,7 +188,7 @@
         android:id="@+id/bottom_nav"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="#0B0F17"
+        android:background="@color/sw_bg"
         app:itemIconTint="@color/bottom_nav_item_tint"
         app:itemTextColor="@color/bottom_nav_item_tint"
         app:labelVisibilityMode="labeled"
@@ -197,4 +198,3 @@
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-

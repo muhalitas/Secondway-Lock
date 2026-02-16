@@ -1,12 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#1976D2</color>
+    <!-- Brand -->
+    <color name="primary">#16A34A</color>
     <color name="on_primary">#FFFFFF</color>
+
+    <!-- App surfaces (dark chrome) -->
+    <color name="sw_bg">#0B0F17</color>
+    <color name="sw_surface">#0F172A</color>
+    <color name="sw_surface_2">#111C33</color>
+    <color name="sw_border">#22304A</color>
+    <color name="sw_text">#E6EDF7</color>
+    <color name="sw_text_muted">#9AA7C0</color>
+    <color name="sw_icon">#C7D2FE</color>
+
+    <!-- Browser chrome -->
+    <color name="browser_url_bg">#0F172A</color>
+    <color name="browser_url_text">#E6EDF7</color>
+    <color name="browser_url_hint">#9AA7C0</color>
+    <color name="browser_icon_tint">#C7D2FE</color>
+    <color name="browser_progress_fg">#16A34A</color>
+    <color name="browser_progress_bg">#22304A</color>
+
+    <!-- Status chips / notices -->
+    <color name="notice_warn_fg">#F59E0B</color>
+    <color name="notice_warn_bg">#2A1B06</color>
+    <color name="notice_ok_fg">#22C55E</color>
+    <color name="notice_ok_bg">#082015</color>
+
     <color name="splash_bg">#E9F5EF</color>
     <color name="splash_text">#1E5D46</color>
     <color name="switch_pending_thumb">#FB8C00</color>
     <color name="switch_pending_track">#FFCC80</color>
-    <color name="switch_on_thumb">#1976D2</color>
+    <color name="switch_on_thumb">@color/primary</color>
     <color name="switch_on_track">#90CAF9</color>
     <color name="switch_off_thumb">#B0B0B0</color>
     <color name="switch_off_track">#E0E0E0</color>
