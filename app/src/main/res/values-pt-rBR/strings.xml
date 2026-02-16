@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Secondway Browser</string>
+    <string name="app_name">Secondway</string>
     <string name="splash_tagline">Protegendo a mente.</string>
     <string name="welcome">Bem-vindo ao Secondway Browser!</string>
     <string name="search_hint">Pesquisar no Google</string>

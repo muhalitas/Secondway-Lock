@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Secondway Browser</string>
+    <string name="app_name">Secondway</string>
     <string name="splash_tagline">Zihni korur.</string>
     <string name="welcome">Secondway Browser uygulamasına hoş geldiniz!</string>
     <string name="search_hint">Google ile ara</string>
@@ -121,4 +121,55 @@
     <string name="error_allowlist_read_failed">Allowlist okuma hatası: %1$s</string>
     <string name="error_not_signed_in_local_only">Giriş yapılmadı: yalnızca yerel.</string>
     <string name="error_settings_sync_failed">Ayarlar senkron hatası: %1$s</string>
+
+    <!-- Bottom navigation -->
+    <string name="nav_blocker">Engelleyici</string>
+    <string name="nav_browser">Browser</string>
+    <string name="nav_info">Bilgiler</string>
+    <string name="nav_profile">Profil</string>
+
+    <!-- New onboarding (Lock + Browser unified) -->
+    <string name="onboarding_skip">Kurulumu atla</string>
+    <string name="onboarding_cta_next">Devam et</string>
+    <string name="onboarding_cta_start">Haydi yapalım şunu</string>
+    <string name="onboarding_cta_finish">Haydi başlayalım</string>
+
+    <string name="onboarding_welcome_kicker">Secondway ile Hoş Geldiniz</string>
+    <string name="onboarding_welcome_title">Porno ve dijital kumarda\nkontrolü geri kazanın.</string>
+    <string name="onboarding_welcome_body">Secondway, dürtü geldiğinde araya sürtünme koyar.\nTarayıcıyı sadeleştirir ve riskli uygulamaları kilitlemeye yardım eder.</string>
+
+    <string name="onboarding_setup_title">Hadi sizi hazırlayalım.\nSecondway uygulamasını ihtiyaçlarınıza göre ayarlayalım.</string>
+    <string name="onboarding_setup_body">Birkaç soru soracağız.\nYanıtlarınız sadece deneyimi kişiselleştirmek içindir.</string>
+    <string name="onboarding_setup_privacy">Veri politikası</string>
+
+    <string name="onboarding_time_question">Her gün pornografi veya\ndijital kumara ne kadar\nzaman gidiyor?</string>
+    <string name="onboarding_time_min">0</string>
+    <string name="onboarding_time_max">12+</string>
+
+    <string name="onboarding_stats_title">Düşündüğünden daha fazla zaman!</string>
+    <string name="onboarding_stats_subtitle">Bu, kendi tahminine göre girilen günlük ortalamadır.\nŞimdi bunun uzun vadede neye dönüştüğünü görelim.</string>
+    <string name="onboarding_stats_projection_kicker">Önümüzdeki 30 yılda:</string>
+    <string name="onboarding_stats_projection_unit">YIL</string>
+    <string name="onboarding_stats_projection_body">Bu alışkanlığa giden zaman (tahmini).\nBu sadece hesap; hedefimiz bunu azaltmak.</string>
+
+    <string name="onboarding_trigger_title">En çok ne tetikliyor?</string>
+    <string name="onboarding_trigger_body">Tek bir seçenek seç.\nİstersen sonra Ayarlar menüsünden değiştirebilirsin.</string>
+    <string name="onboarding_trigger_default">Seçim yapılmadı</string>
+    <string name="trigger_stress">Stres ve kaygı</string>
+    <string name="trigger_lonely">Yalnızlık</string>
+    <string name="trigger_night">Gece ve uykusuzluk</string>
+    <string name="trigger_bored">Can sıkıntısı</string>
+
+    <string name="onboarding_permissions_title">Dijital muhafızınızı açalım</string>
+    <string name="onboarding_permissions_body">Secondway uygulamasının kilitleme ve uyarı ekranlarını gösterebilmesi için\nbazı izinler gerekir.</string>
+    <string name="onboarding_perm_accessibility">Accessibility Guard</string>
+    <string name="onboarding_perm_overlay">Üstte göster (Overlay)</string>
+    <string name="onboarding_perm_battery">Pil optimizasyonu</string>
+    <string name="onboarding_open_settings">Ayarları aç</string>
+
+    <string name="onboarding_finish_title">Zaten ilk adımı attınız.</string>
+    <string name="onboarding_finish_body">Artık amaç basit:\nDürtü gelince otomatik pilotu kırmak.</string>
+    <string name="onboarding_finish_bullet_1">• Riskli uygulamalar açılırken yakalanır.</string>
+    <string name="onboarding_finish_bullet_2">• Tarayıcı varsayılan olarak sade çalışır.</string>
+    <string name="onboarding_finish_bullet_3">• Silme/devre dışı bırakma ekranları kapatılır.</string>
 </resources>

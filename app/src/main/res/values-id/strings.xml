@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Secondway Browser</string>
+    <string name="app_name">Secondway</string>
     <string name="splash_tagline">Melindungi pikiran.</string>
     <string name="welcome">Selamat datang di Secondway Browser!</string>
     <string name="search_hint">Cari di Google</string>
