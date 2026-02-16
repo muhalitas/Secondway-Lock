@@ -131,6 +131,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         allAppsRecycler = findViewById(R.id.all_apps_list)
+        allAppsRecycler.isNestedScrollingEnabled = false
         allAppsRecycler.layoutManager = LinearLayoutManager(this)
         allAppsAdapter = NewAppsAdapter(allAppRows) { row, allowed -> onNewAppSwitchChanged(row, allowed) }
         allAppsRecycler.adapter = allAppsAdapter

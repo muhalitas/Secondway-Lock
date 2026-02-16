@@ -12,6 +12,7 @@
     <color name="sw_text">#E6EDF7</color>
     <color name="sw_text_muted">#9AA7C0</color>
     <color name="sw_icon">#C7D2FE</color>
+    <color name="sw_scrim">#CC050A12</color>
 
     <!-- Browser chrome -->
     <color name="browser_url_bg">#0F172A</color>
@@ -29,10 +30,10 @@
 
     <color name="splash_bg">#E9F5EF</color>
     <color name="splash_text">#1E5D46</color>
-    <color name="switch_pending_thumb">#FB8C00</color>
-    <color name="switch_pending_track">#FFCC80</color>
+    <color name="switch_pending_thumb">#F59E0B</color>
+    <color name="switch_pending_track">#5A3A08</color>
     <color name="switch_on_thumb">@color/primary</color>
-    <color name="switch_on_track">#90CAF9</color>
-    <color name="switch_off_thumb">#B0B0B0</color>
-    <color name="switch_off_track">#E0E0E0</color>
+    <color name="switch_on_track">#225E38</color>
+    <color name="switch_off_thumb">#9AA7C0</color>
+    <color name="switch_off_track">#2A3548</color>
 </resources>

@@ -9,6 +9,7 @@
         android:id="@+id/browser_settings_scroll"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:fillViewport="true"
         android:overScrollMode="never"
         app:layout_constraintBottom_toTopOf="@id/bottom_nav"
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,7 +20,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/SecondwayPageTitle"
+                android:text="@string/settings_title" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="14dp"
+                style="@style/SecondwayBodyMuted"
+                android:text="@string/settings_profile_subtitle" />
 
             <TextView
                 android:id="@+id/section_account"
@@ -27,25 +42,36 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="6dp"
                 android:text="@string/settings_section_account"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                style="@style/SecondwaySectionTitle" />
 
-            <TextView
-                android:id="@+id/account_status"
+            <com.google.android.material.card.MaterialCardView
+                style="@style/SecondwayCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:textSize="13sp" />
+                android:layout_marginBottom="12dp">
 
-            <Button
-                android:id="@+id/account_action"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/sign_in" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="16dp" />
+                    <TextView
+                        android:id="@+id/account_status"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/SecondwayBodyMuted"
+                        android:textSize="14sp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/account_action"
+                        style="@style/SecondwayButtonPrimary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/sign_in" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
             <TextView
                 android:id="@+id/section_language"
@@ -53,25 +79,36 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="6dp"
                 android:text="@string/settings_section_language"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                style="@style/SecondwaySectionTitle" />
 
-            <TextView
-                android:id="@+id/language_value"
+            <com.google.android.material.card.MaterialCardView
+                style="@style/SecondwayCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:textSize="13sp" />
+                android:layout_marginBottom="12dp">
 
-            <Button
-                android:id="@+id/language_change_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/settings_language_change" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="16dp" />
+                    <TextView
+                        android:id="@+id/language_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/SecondwayBodyMuted"
+                        android:textSize="14sp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/language_change_button"
+                        style="@style/SecondwayButtonSecondary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/settings_language_change" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
             <TextView
                 android:id="@+id/section_waitlist"
@@ -79,25 +116,36 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="6dp"
                 android:text="@string/settings_section_waitlist"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                style="@style/SecondwaySectionTitle" />
 
-            <TextView
-                android:id="@+id/lock_duration_value"
+            <com.google.android.material.card.MaterialCardView
+                style="@style/SecondwayCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:textSize="13sp" />
+                android:layout_marginBottom="12dp">
 
-            <Button
-                android:id="@+id/lock_duration_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/settings_set_lock_duration" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="16dp" />
+                    <TextView
+                        android:id="@+id/lock_duration_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/SecondwayBodyMuted"
+                        android:textSize="14sp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/lock_duration_button"
+                        style="@style/SecondwayButtonSecondary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/settings_set_lock_duration" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
             <TextView
                 android:id="@+id/section_allowlist"
@@ -105,18 +153,35 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="6dp"
                 android:text="@string/settings_section_allowlist"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                style="@style/SecondwaySectionTitle" />
 
-            <Button
-                android:id="@+id/allowlist_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/allowlist_menu" />
-
-            <View
+            <com.google.android.material.card.MaterialCardView
+                style="@style/SecondwayCard"
                 android:layout_width="match_parent"
-                android:layout_height="16dp" />
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/SecondwayBodyMuted"
+                        android:text="@string/settings_allowlist_card_body" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/allowlist_button"
+                        style="@style/SecondwayButtonSecondary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/allowlist_menu" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
             <TextView
                 android:id="@+id/section_browser"
@@ -124,38 +189,59 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="6dp"
                 android:text="@string/settings_section_browser"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                style="@style/SecondwaySectionTitle" />
 
-            <Button
-                android:id="@+id/downloads_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/downloads" />
+            <com.google.android.material.card.MaterialCardView
+                style="@style/SecondwayCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <Button
-                android:id="@+id/history_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/history" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
-            <Button
-                android:id="@+id/clear_data_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/clear_browsing_data" />
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/downloads_button"
+                        style="@style/SecondwayButtonSecondary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/downloads" />
 
-            <Button
-                android:id="@+id/default_browser_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/settings_default_browser_action" />
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/history_button"
+                        style="@style/SecondwayButtonSecondary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/history" />
 
-            <Button
-                android:id="@+id/about_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/about" />
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/clear_data_button"
+                        style="@style/SecondwayButtonSecondary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/clear_browsing_data" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/default_browser_button"
+                        style="@style/SecondwayButtonSecondary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/settings_default_browser_action" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/about_button"
+                        style="@style/SecondwayButtonSecondary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/about" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
     </ScrollView>
 

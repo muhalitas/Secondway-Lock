@@ -73,6 +73,7 @@ class MainActivity : AppCompatActivity(), TabFragment.Listener, TabSwitcherDialo
 
     companion object {
         const val GOOGLE_SAFE_SEARCH_HOME = "https://www.google.com"
+        private const val BLANK_START_PAGE = "about:blank"
         private const val TAB_SWITCHER_TAG = "tab_switcher"
         private const val SUGGEST_DELAY_MS = 300L
         private const val SUGGEST_URL = "https://suggestqueries.google.com/complete/search?client=firefox&hl=en&q="
@@ -98,6 +99,9 @@ class MainActivity : AppCompatActivity(), TabFragment.Listener, TabSwitcherDialo
     private lateinit var loadProgress: ProgressBar
     private lateinit var toolbarUrlContainer: View
     private lateinit var toolbarTabsFrame: View
+    private lateinit var browserEmptyState: View
+    private lateinit var browserEmptyPrimary: View
+    private lateinit var browserEmptySecondary: View
     private var urlBarSelectAllActive = false
     private val resolveClient by lazy {
         val cache = File(cacheDir, "resolve_cache")
@@ -713,6 +717,9 @@ class MainActivity : AppCompatActivity(), TabFragment.Listener, TabSwitcherDialo
         loadProgress = findViewById(R.id.load_progress)
         toolbarUrlContainer = findViewById(R.id.toolbar_url_container)
         toolbarTabsFrame = findViewById(R.id.toolbar_tabs_frame)
+        browserEmptyState = findViewById(R.id.browser_empty_state)
+        browserEmptyPrimary = findViewById(R.id.browser_empty_primary)
+        browserEmptySecondary = findViewById(R.id.browser_empty_secondary)
         urlBar.isCursorVisible = true
 
         btnLock.setOnClickListener {
@@ -764,7 +771,7 @@ class MainActivity : AppCompatActivity(), TabFragment.Listener, TabSwitcherDialo
         }
 
         if (tabs.isEmpty()) {
-            tabs.add(TabItem(UUID.randomUUID().toString(), GOOGLE_SAFE_SEARCH_HOME, getString(R.string.new_tab_title)))
+            tabs.add(TabItem(UUID.randomUUID().toString(), BLANK_START_PAGE, getString(R.string.new_tab_title)))
         }
 
         tabsAdapter = TabsAdapter(this, tabs)
@@ -861,8 +868,18 @@ class MainActivity : AppCompatActivity(), TabFragment.Listener, TabSwitcherDialo
         btnHome.setOnClickListener {
             currentWebView?.loadUrl(GOOGLE_SAFE_SEARCH_HOME)
         }
+        browserEmptyPrimary.setOnClickListener {
+            openUrlInCurrentTabDirect(GOOGLE_SAFE_SEARCH_HOME)
+        }
+        browserEmptySecondary.setOnClickListener {
+            urlBar.requestFocus()
+            urlBar.post {
+                urlBar.selectAll()
+                showKeyboard()
+            }
+        }
         btnAddTab.setOnClickListener {
-            val newTab = TabItem(UUID.randomUUID().toString(), GOOGLE_SAFE_SEARCH_HOME, getString(R.string.new_tab_title))
+            val newTab = TabItem(UUID.randomUUID().toString(), BLANK_START_PAGE, getString(R.string.new_tab_title))
             tabs.add(newTab)
             tabsAdapter.notifyItemInserted(tabs.size - 1)
             viewPager.setCurrentItem(tabs.size - 1, true)
@@ -987,7 +1004,7 @@ class MainActivity : AppCompatActivity(), TabFragment.Listener, TabSwitcherDialo
     }
 
     override fun onNewTabRequested() {
-        val newTab = TabItem(UUID.randomUUID().toString(), GOOGLE_SAFE_SEARCH_HOME, getString(R.string.new_tab_title))
+        val newTab = TabItem(UUID.randomUUID().toString(), BLANK_START_PAGE, getString(R.string.new_tab_title))
         tabs.add(newTab)
         tabsAdapter.notifyItemInserted(tabs.size - 1)
         viewPager.setCurrentItem(tabs.size - 1, true)
@@ -1013,7 +1030,15 @@ class MainActivity : AppCompatActivity(), TabFragment.Listener, TabSwitcherDialo
 
     /** Sekme URL'sine göre çubuk metnini günceller: odak yokken kısa, odak varken tam URL. */
     private fun updateUrlBarDisplay(fullUrl: String) {
-        urlBar.setText(if (urlBar.isFocused) fullUrl else shortUrlForDisplay(fullUrl))
+        val normalized = if (fullUrl == BLANK_START_PAGE) "" else fullUrl
+        urlBar.setText(if (urlBar.isFocused) normalized else shortUrlForDisplay(normalized))
+        updateBrowserEmptyState()
+    }
+
+    private fun updateBrowserEmptyState() {
+        val currentUrl = tabs.getOrNull(viewPager.currentItem)?.url.orEmpty()
+        val shouldShow = !urlBar.isFocused && (currentUrl.isBlank() || currentUrl == BLANK_START_PAGE)
+        browserEmptyState.visibility = if (shouldShow) View.VISIBLE else View.GONE
     }
 
     /** Toolbar'daki URL dışı butonları göster/gizle (focus'ta tam satır URL alanı). */
@@ -1045,6 +1070,9 @@ class MainActivity : AppCompatActivity(), TabFragment.Listener, TabSwitcherDialo
         val webView = currentWebView
         if (webView == null) {
             pendingOpenUrl = url
+            tabs.getOrNull(viewPager.currentItem)?.url = url
+            updateUrlBarDisplay(url)
+            updateAllowlistButtonState()
             return
         }
         webView.loadUrl(url)
@@ -1310,6 +1338,11 @@ class MainActivity : AppCompatActivity(), TabFragment.Listener, TabSwitcherDialo
         val imm = getSystemService(INPUT_METHOD_SERVICE) as? InputMethodManager ?: return
         val token = currentFocus?.windowToken ?: urlBar.windowToken
         imm.hideSoftInputFromWindow(token, 0)
+    }
+
+    private fun showKeyboard() {
+        val imm = getSystemService(INPUT_METHOD_SERVICE) as? InputMethodManager ?: return
+        imm.showSoftInput(urlBar, InputMethodManager.SHOW_IMPLICIT)
     }
 
     private fun isTouchInsideView(event: MotionEvent, view: View): Boolean {

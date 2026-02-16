@@ -29,6 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16sp"
+            android:textColor="@color/sw_text"
             android:maxLines="1"
             android:ellipsize="end" />
 
@@ -37,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="12sp"
-            android:textColor="#757575"
+            android:textColor="@color/sw_text_muted"
             android:maxLines="1"
             android:ellipsize="end" />
     </LinearLayout>

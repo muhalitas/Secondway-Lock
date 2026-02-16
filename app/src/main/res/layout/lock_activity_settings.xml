@@ -27,9 +27,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
+                style="@style/SecondwayPageTitle"
                 android:text="@string/settings_title"
-                android:textSize="22sp"
-                android:textStyle="bold" />
+                android:textSize="26sp" />
 
             <TextView
                 android:id="@+id/build_time"
@@ -53,9 +53,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="6dp"
+                style="@style/SecondwaySectionTitle"
                 android:text="@string/settings_section_device"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                android:textSize="15sp" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/full_protection_card"
@@ -97,8 +97,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="2dp">
+                style="@style/SecondwayCard">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -117,12 +116,12 @@
                         android:layout_marginTop="4dp"
                         android:textColor="@color/sw_text_muted"
                         android:textSize="13sp" />
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/default_browser_action"
+                        style="@style/SecondwayButtonPrimary"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:minHeight="40dp"
                         android:text="@string/settings_open_default_apps" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -132,8 +131,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="2dp">
+                style="@style/SecondwayCard">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -152,12 +150,12 @@
                         android:layout_marginTop="4dp"
                         android:textColor="@color/sw_text_muted"
                         android:textSize="13sp" />
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/language_change_button"
+                        style="@style/SecondwayButtonPrimary"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:minHeight="40dp"
                         android:text="@string/settings_language_label" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -167,9 +165,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="6dp"
+                style="@style/SecondwaySectionTitle"
                 android:text="@string/settings_section_battery"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                android:textSize="15sp" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/battery_opt_card"
@@ -208,18 +206,18 @@
                         android:layout_marginTop="8dp"
                         android:gravity="end"
                         android:orientation="horizontal">
-                        <Button
+                        <com.google.android.material.button.MaterialButton
                             android:id="@+id/battery_opt_dismiss"
+                            style="@style/SecondwayButtonSecondary"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:minHeight="40dp"
                             android:text="@string/battery_opt_dismiss" />
-                        <Button
+                        <com.google.android.material.button.MaterialButton
                             android:id="@+id/battery_opt_allow"
+                            style="@style/SecondwayButtonPrimary"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
-                            android:minHeight="40dp"
                             android:text="@string/battery_opt_allow" />
                     </LinearLayout>
                 </LinearLayout>
@@ -229,12 +227,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="6dp"
+                style="@style/SecondwaySectionTitle"
                 android:text="@string/settings_section_help"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                android:textSize="15sp" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/readme_button"
+                style="@style/SecondwayButtonSecondary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
@@ -244,33 +243,37 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="6dp"
+                style="@style/SecondwaySectionTitle"
                 android:text="@string/settings_section_advanced"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                android:textSize="15sp" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_enable_accessibility_guard"
+                style="@style/SecondwayButtonSecondary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:text="@string/settings_enable_accessibility_guard" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_allow_overlay"
+                style="@style/SecondwayButtonSecondary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:text="@string/settings_allow_overlay" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_test_guard_screen"
+                style="@style/SecondwayButtonSecondary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:text="@string/settings_test_guard_screen" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_open_app_info"
+                style="@style/SecondwayButtonSecondary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"

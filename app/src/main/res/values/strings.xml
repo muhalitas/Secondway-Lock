@@ -40,6 +40,10 @@
     <string name="tab_switcher_title">Tabs</string>
     <string name="close_tab">Close tab</string>
     <string name="new_tab_title">New tab</string>
+    <string name="browser_empty_title">Ready to browse safely</string>
+    <string name="browser_empty_subtitle">Start with Safe Search or type a URL to open a site in this tab.</string>
+    <string name="browser_empty_primary">Open Safe Search</string>
+    <string name="browser_empty_secondary">Type a URL</string>
     <string name="close">Close</string>
     <string name="more_options">More</string>
     <string name="refresh">Refresh</string>
@@ -81,6 +85,8 @@
     <string name="settings_section_waitlist">Waitlist</string>
     <string name="settings_section_allowlist">Allowlist</string>
     <string name="settings_section_browser">Browser</string>
+    <string name="settings_profile_subtitle">Account, language and browser controls in one place.</string>
+    <string name="settings_allowlist_card_body">Review or remove sites that load full content.</string>
     <string name="settings_signed_in_as">Signed in as %1$s</string>
     <string name="settings_signed_out">Not signed in</string>
     <string name="settings_language_title">Choose language</string>
