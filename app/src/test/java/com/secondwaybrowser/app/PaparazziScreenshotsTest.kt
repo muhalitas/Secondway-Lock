@@ -18,6 +18,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import com.android.resources.NightMode
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import org.junit.Rule
 import org.junit.Test
@@ -28,7 +29,8 @@ import org.junit.Test
  */
 class PaparazziScreenshotsTest {
 
-    private val device = DeviceConfig.PIXEL_6
+    // Force dark mode so Paparazzi matches the app's real-world appearance on devices using dark theme.
+    private val device = DeviceConfig.PIXEL_6.copy(nightMode = NightMode.NIGHT)
 
     private class PlaceholderPagerAdapter(
         private val pages: List<String>
@@ -47,7 +49,8 @@ class PaparazziScreenshotsTest {
                 textSize = 16f
                 setTypeface(typeface, Typeface.BOLD)
                 setTextColor(ContextCompat.getColor(ctx, R.color.sw_text))
-                setBackgroundColor(ContextCompat.getColor(ctx, R.color.sw_surface))
+                // Match app: browser content area is typically the same dark background when empty.
+                setBackgroundColor(ContextCompat.getColor(ctx, R.color.sw_bg))
             }
             return VH(tv)
         }

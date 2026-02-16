@@ -19,6 +19,7 @@
         <item name="android:colorBackground">@color/sw_bg</item>
         <item name="android:textColorPrimary">@color/sw_text</item>
         <item name="android:textColorSecondary">@color/sw_text_muted</item>
+        <item name="android:textColorHint">@color/sw_text_muted</item>
         <item name="android:windowBackground">@color/sw_bg</item>
         <item name="android:statusBarColor">@color/sw_bg</item>
         <item name="android:navigationBarColor">@color/sw_bg</item>
@@ -40,6 +41,7 @@
         <item name="android:colorBackground">@color/sw_bg</item>
         <item name="android:textColorPrimary">@color/sw_text</item>
         <item name="android:textColorSecondary">@color/sw_text_muted</item>
+        <item name="android:textColorHint">@color/sw_text_muted</item>
         <item name="android:windowBackground">@color/sw_bg</item>
         <item name="android:statusBarColor">@color/sw_bg</item>
         <item name="android:navigationBarColor">@color/sw_bg</item>
