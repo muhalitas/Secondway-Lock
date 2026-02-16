@@ -13,6 +13,11 @@ This repo is optimized for a no-prompt, automated UI iteration loop.
   - GitHub Actions workflow: `Android Screenshots`
   - Triggered on pushes to `main` that touch UI code/resources, and nightly.
   - Review artifacts named `screenshots` in the workflow run.
+- Run a recurring market intelligence scan before major UX/growth changes:
+  - Run: `./scripts/market_scan.sh`
+  - Review: `artifacts/market/market_scan_latest.md`
+  - Treat source availability explicitly: SensorTower is primary if reachable, and
+    AppMagic/data.ai must be reported as `reachable` or `blocked`.
 
 ## What "Good" Means
 
@@ -30,3 +35,10 @@ This repo is optimized for a no-prompt, automated UI iteration loop.
 - High fidelity (runtime): Emulator
   - GitHub Actions: `.github/workflows/android-screenshots.yml`
 
+## Market Sources
+
+- Automated report:
+  - Command: `./scripts/market_scan.sh`
+  - Output: `artifacts/market/market_scan_latest.md`
+- CI automation:
+  - GitHub Actions: `.github/workflows/market-intelligence.yml` (weekly + manual)

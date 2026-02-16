@@ -36,3 +36,12 @@ Bu sürüm **soft mode** çalışır:
 - `AccessibilityGuardService` - Bloklu app/tamper ekranı tespiti ve müdahale
 - `GuardInterventionActivity` - Kısa bilgi ekranı
 - `InstallMonitorService` - Arka planda yeni kurulum takibi
+
+## Otomatik geliştirme döngüsü
+
+- UI screenshot doğrulaması:
+  - `./scripts/screenshots.sh`
+  - Çıktı: `artifacts/screenshots/paparazzi/`
+- Market intelligence doğrulaması (SensorTower/AppMagic/data.ai erişimi + Play review sinyalleri):
+  - `./scripts/market_scan.sh`
+  - Çıktı: `artifacts/market/market_scan_latest.md`

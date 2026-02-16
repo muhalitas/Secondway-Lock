@@ -1,0 +1,38 @@
+name: Market Intelligence
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Weekly on Mondays (UTC)
+    - cron: "15 5 * * 1"
+
+concurrency:
+  group: market-intelligence-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip google-play-scraper
+
+      - name: Generate market intelligence report
+        run: python scripts/market_scan.py --country us --lang en --reviews-per-app 300
+
+      - name: Upload market report
+        uses: actions/upload-artifact@v4
+        with:
+          name: market-intelligence
+          path: artifacts/market/*
+          if-no-files-found: error
